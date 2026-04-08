@@ -1,21 +1,18 @@
 import Image from "next/image";
 import { portfolioContent } from "@/content/portfolio";
 
+const heroCtaClassMap = {
+  primary:
+    "rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+  secondary:
+    "rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+  ghost:
+    "rounded-xl border border-cyan-300/30 bg-cyan-400/5 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+} as const;
+
 export default function Home() {
-  const {
-    person,
-    navigation,
-    hero,
-    impact,
-    about,
-    capabilities,
-    skills,
-    work,
-    socialProof,
-    cta,
-    contact,
-    footer,
-  } = portfolioContent;
+  const { person, navigation, hero, impact, about, capabilities, skills, work, cta, contact, footer } =
+    portfolioContent;
 
   return (
     <>
@@ -33,20 +30,28 @@ export default function Home() {
           <div className="absolute inset-x-0 top-[72rem] h-[420px] bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.1),transparent_65%)]" />
         </div>
 
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Portfolio</p>
-              <p className="text-sm font-semibold text-slate-100">{person.name}</p>
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
+          <div className="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Portfolio</p>
+                <p className="text-sm font-semibold text-slate-100">{person.name}</p>
+              </div>
+              <a
+                href={`mailto:${person.email}`}
+                className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:text-sm"
+              >
+                Email
+              </a>
             </div>
 
-            <nav aria-label="Primary" className="hidden lg:block">
-              <ul className="flex items-center gap-7 text-sm text-slate-300">
+            <nav aria-label="Primary" className="mt-4">
+              <ul className="flex items-center gap-2 overflow-x-auto pb-1 text-sm text-slate-200 [scrollbar-width:none] sm:gap-3 lg:justify-end">
                 {navigation.map((link) => (
-                  <li key={link.href}>
+                  <li key={link.href} className="shrink-0">
                     <a
                       href={link.href}
-                      className="transition hover:text-white focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                      className="inline-flex rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 transition hover:border-white/30 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                     >
                       {link.label}
                     </a>
@@ -57,8 +62,8 @@ export default function Home() {
           </div>
         </header>
 
-        <main id="main-content" className="mx-auto w-full max-w-6xl px-6 pb-24 pt-12 sm:pt-16">
-          <section className="relative overflow-hidden rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-8 shadow-2xl shadow-cyan-950/30 sm:p-12 lg:p-14">
+        <main id="main-content" className="mx-auto w-full max-w-6xl px-4 pb-24 pt-10 sm:px-6 sm:pt-16">
+          <section className="relative overflow-hidden rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-7 shadow-2xl shadow-cyan-950/30 sm:p-12 lg:p-14">
             <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
@@ -71,19 +76,19 @@ export default function Home() {
                   {hero.supportingText}
                 </p>
 
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <a
-                    href={hero.primaryCta.href}
-                    className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {hero.primaryCta.label}
-                  </a>
-                  <a
-                    href={hero.secondaryCta.href}
-                    className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {hero.secondaryCta.label}
-                  </a>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {hero.ctas.map((heroCta) => (
+                    <a
+                      key={heroCta.label}
+                      href={heroCta.href}
+                      download={heroCta.download}
+                      target={heroCta.external ? "_blank" : undefined}
+                      rel={heroCta.external ? "noreferrer" : undefined}
+                      className={heroCtaClassMap[heroCta.variant]}
+                    >
+                      {heroCta.label}
+                    </a>
+                  ))}
                 </div>
 
                 <p className="mt-7 text-sm font-medium text-cyan-200">{hero.availability}</p>
@@ -142,7 +147,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="about" className="mt-20 scroll-mt-24">
+          <section id="about" className="mt-20 scroll-mt-28">
             <h2 className="text-3xl font-semibold tracking-tight text-white">{about.sectionTitle}</h2>
             <div className="mt-6 max-w-4xl space-y-5 text-slate-300">
               {about.paragraphs.map((paragraph) => (
@@ -153,7 +158,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="capabilities" className="mt-20 scroll-mt-24">
+          <section id="capabilities" className="mt-20 scroll-mt-28">
             <h2 className="text-3xl font-semibold tracking-tight text-white">
               {capabilities.sectionTitle}
             </h2>
@@ -202,90 +207,112 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="work" className="mt-20 scroll-mt-24">
-            <h2 className="text-3xl font-semibold tracking-tight text-white">{work.sectionTitle}</h2>
-            <div className="mt-8 grid gap-8 lg:grid-cols-2">
-              <div>
-                <h3 className="text-lg font-semibold text-cyan-200">{work.projectsTitle}</h3>
-                <div className="mt-4 space-y-4">
-                  {work.projects.map((project) => (
-                    <article
-                      key={project.name}
-                      className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                    >
-                      <h4 className="text-base font-semibold text-white">{project.name}</h4>
-                      <p className="mt-3 text-sm leading-7 text-slate-300">{project.summary}</p>
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {project.stack.map((item) => (
-                          <li
-                            key={item}
-                            className="rounded-md border border-cyan-300/30 bg-cyan-400/5 px-2 py-1 text-xs text-cyan-100"
-                          >
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </article>
-                  ))}
-                </div>
-              </div>
+          <section id="case-studies" className="mt-20 scroll-mt-28" aria-label={work.sectionTitle}>
+            <h2 className="text-3xl font-semibold tracking-tight text-white">{work.caseStudiesTitle}</h2>
+            <div className="mt-8 grid gap-5 lg:grid-cols-3">
+              {work.caseStudies.map((caseStudy) => (
+                <article
+                  key={caseStudy.name}
+                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                    {caseStudy.context}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold text-white">{caseStudy.name}</h3>
 
-              <div>
-                <h3 className="text-lg font-semibold text-cyan-200">{work.experienceTitle}</h3>
-                <div className="mt-4 space-y-4">
-                  {work.experience.map((item) => (
-                    <article
-                      key={`${item.title}-${item.period}`}
-                      className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                    >
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                        {item.period}
-                      </p>
-                      <h4 className="mt-2 text-base font-semibold text-white">{item.title}</h4>
-                      <p className="text-sm text-slate-300">{item.organization}</p>
-                      <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
-                      <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                        {item.highlights.map((highlight) => (
-                          <li key={highlight} className="flex items-start gap-2">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </article>
-                  ))}
-                </div>
-              </div>
+                  <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
+                    <p>
+                      <span className="font-semibold text-slate-100">Problem:</span> {caseStudy.problem}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-slate-100">Role:</span> {caseStudy.role}
+                    </p>
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-sm font-semibold text-cyan-200">Implementation</p>
+                    <ul className="mt-2 space-y-2 text-sm text-slate-300">
+                      {caseStudy.implementation.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-5">
+                    <p className="text-sm font-semibold text-cyan-200">Outcomes</p>
+                    <ul className="mt-2 space-y-2 text-sm text-slate-300">
+                      {caseStudy.outcomes.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {caseStudy.stack.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-md border border-cyan-300/30 bg-cyan-400/5 px-2 py-1 text-xs text-cyan-100"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    {caseStudy.links.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noreferrer" : undefined}
+                        className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white transition hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                </article>
+              ))}
             </div>
           </section>
 
-          <section id="social-proof" className="mt-20 scroll-mt-24">
-            <div className="rounded-3xl border border-amber-300/30 bg-amber-100/5 p-8 sm:p-10">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
-                {socialProof.sectionTitle}
-              </h2>
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-amber-100/85">
-                {socialProof.sectionNote}
-              </p>
-
-              <div className="mt-7 grid gap-4 lg:grid-cols-3">
-                {socialProof.items.map((item) => (
-                  <article
-                    key={`${item.label}-${item.attribution}`}
-                    className="rounded-2xl border border-white/10 bg-slate-900/70 p-5"
-                  >
-                    {item.placeholder ? (
-                      <p className="inline-flex rounded-full border border-amber-200/40 bg-amber-100/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-amber-200">
-                        Placeholder
-                      </p>
-                    ) : null}
-                    <p className="mt-4 text-sm leading-7 text-slate-200">“{item.quote}”</p>
-                    <p className="mt-4 text-xs uppercase tracking-[0.18em] text-slate-400">
-                      {item.attribution}
+          <section id="experience" className="mt-20 scroll-mt-28">
+            <h2 className="text-3xl font-semibold tracking-tight text-white">{work.experienceTitle}</h2>
+            <div className="mt-6 space-y-4">
+              {work.experience.map((item) => (
+                <article
+                  key={`${item.title}-${item.organization}-${item.period}`}
+                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
+                >
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                      {item.period}
                     </p>
-                  </article>
-                ))}
-              </div>
+                    <p className="rounded-full border border-white/15 bg-white/[0.03] px-2.5 py-1 text-xs text-slate-200">
+                      {item.engagement}
+                    </p>
+                  </div>
+
+                  <h3 className="mt-3 text-base font-semibold text-white">{item.title}</h3>
+                  <p className="text-sm text-slate-300">{item.organization}</p>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+
+                  <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
             </div>
           </section>
 
@@ -302,8 +329,7 @@ export default function Home() {
                 </a>
                 <a
                   href={cta.secondary.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  download={person.resume.downloadFileName}
                   className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                 >
                   {cta.secondary.label}
@@ -312,11 +338,9 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="contact" className="mt-20 scroll-mt-24">
+          <section id="contact" className="mt-20 scroll-mt-28">
             <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 sm:p-10">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">
-                {contact.sectionTitle}
-              </h2>
+              <h2 className="text-3xl font-semibold tracking-tight text-white">{contact.sectionTitle}</h2>
               <p className="mt-3 text-xl text-cyan-200">{contact.heading}</p>
               <p className="mt-4 max-w-3xl leading-7 text-slate-300">{contact.description}</p>
 
@@ -331,8 +355,8 @@ export default function Home() {
                   <a
                     key={link.label}
                     href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noreferrer" : undefined}
                     className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                   >
                     {link.label}
@@ -344,7 +368,7 @@ export default function Home() {
         </main>
 
         <footer className="border-t border-white/10 py-8">
-          <p className="mx-auto w-full max-w-6xl px-6 text-sm text-slate-400">{footer.text}</p>
+          <p className="mx-auto w-full max-w-6xl px-4 text-sm text-slate-400 sm:px-6">{footer.text}</p>
         </footer>
       </div>
     </>

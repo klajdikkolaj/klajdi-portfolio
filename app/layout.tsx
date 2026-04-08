@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   },
   description: portfolioContent.site.description,
   keywords: [...portfolioContent.site.keywords],
+  alternates: {
+    canonical: portfolioContent.site.canonicalUrl,
+  },
   openGraph: {
     title: portfolioContent.site.title,
     description: portfolioContent.site.description,
@@ -48,6 +51,33 @@ export const metadata: Metadata = {
   },
 };
 
+const profileJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": `${portfolioContent.site.canonicalUrl}#profile-page`,
+      url: portfolioContent.site.canonicalUrl,
+      name: portfolioContent.site.profilePageName,
+      description: portfolioContent.site.description,
+      mainEntity: {
+        "@id": `${portfolioContent.site.canonicalUrl}#person`,
+      },
+    },
+    {
+      "@type": "Person",
+      "@id": `${portfolioContent.site.canonicalUrl}#person`,
+      name: portfolioContent.person.name,
+      jobTitle: portfolioContent.person.role,
+      email: `mailto:${portfolioContent.person.email}`,
+      url: portfolioContent.site.canonicalUrl,
+      image: `${portfolioContent.site.url}${portfolioContent.person.photo.src}`,
+      sameAs: [portfolioContent.person.linkedin, portfolioContent.person.github],
+      knowsAbout: [...portfolioContent.site.knowsAbout],
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,7 +88,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full font-sans text-slate-100">{children}</body>
+      <body className="min-h-full font-sans text-slate-100">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(profileJsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
