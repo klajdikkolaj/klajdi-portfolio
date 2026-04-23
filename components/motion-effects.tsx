@@ -10,6 +10,77 @@ export function MotionEffects() {
 
     if (reduce) return;
 
+    let cleanupGsap: (() => void) | undefined;
+
+    void (async () => {
+      const { gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
+      const ctx = gsap.context(() => {
+        const hero = document.querySelector<HTMLElement>(".hero-stage");
+        if (hero) {
+          gsap.fromTo(
+            ".hero-anim",
+            { y: 28, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: "power3.out",
+            },
+          );
+
+          ScrollTrigger.create({
+            trigger: hero,
+            start: "top top",
+            end: "+=35%",
+            pin: true,
+            scrub: 0.6,
+            anticipatePin: 1,
+          });
+        }
+
+        gsap.utils.toArray<HTMLElement>(".parallax").forEach((el, i) => {
+          gsap.to(el, {
+            yPercent: i % 2 === 0 ? -10 : 12,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.8,
+            },
+          });
+        });
+
+        gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 40, opacity: 0.01, scale: 0.985 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 88%",
+                end: "top 48%",
+                scrub: 0.45,
+              },
+            },
+          );
+        });
+      });
+
+      cleanupGsap = () => {
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+        ctx.revert();
+      };
+    })();
+
     const handlePointer = (event: PointerEvent) => {
       document.body.style.setProperty("--pointer-x", `${event.clientX}px`);
       document.body.style.setProperty("--pointer-y", `${event.clientY}px`);
@@ -67,6 +138,7 @@ export function MotionEffects() {
     return () => {
       window.removeEventListener("pointermove", handlePointer);
       window.removeEventListener("pointerleave", resetMagnetic);
+      cleanupGsap?.();
     };
   }, []);
 
