@@ -20,6 +20,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html.motion-safe {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background: var(--background);
@@ -72,14 +76,83 @@ p {
 
 .card-lift {
   transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+  transform-style: preserve-3d;
 }
 
 .card-lift:hover {
-  transform: translateY(-4px);
+  transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
   border-color: rgb(103 232 249 / 40%);
   box-shadow:
     0 20px 45px rgb(2 6 23 / 34%),
     0 0 0 1px rgb(103 232 249 / 12%);
+}
+
+.hero-anim {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.page-ready .hero-anim {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-delay-1 {
+  transition-delay: 80ms;
+}
+
+.hero-delay-2 {
+  transition-delay: 160ms;
+}
+
+.hero-delay-3 {
+  transition-delay: 240ms;
+}
+
+.hero-delay-4 {
+  transition-delay: 320ms;
+}
+
+.parallax {
+  will-change: transform;
+  transition: transform 180ms linear;
+}
+
+.parallax-slow {
+  --parallax-strength: 12;
+}
+
+.parallax-mid {
+  --parallax-strength: 20;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgb(34 211 238 / 0.2), rgb(34 211 238 / 0.95));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.magnetic-btn {
+  will-change: transform;
+  transition: transform 220ms ease;
 }
 
 .reveal {
@@ -96,6 +169,16 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  body.page-ready .hero-anim,
+  .hero-anim,
+  .parallax,
+  .magnetic-btn,
+  .nav-link::after {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 
   .card-lift,

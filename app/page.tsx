@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MobileNav } from "@/components/mobile-nav";
+import { MotionEffects } from "@/components/motion-effects";
 import { SectionReveal } from "@/components/section-reveal";
 import { portfolioContent } from "@/content/portfolio";
 
@@ -18,6 +19,7 @@ export default function Home() {
 
   return (
     <>
+      <MotionEffects />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-slate-100 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
@@ -27,9 +29,9 @@ export default function Home() {
 
       <div className="relative min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -top-32 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
-          <div className="absolute top-[26rem] right-[-8rem] h-[24rem] w-[24rem] rounded-full bg-violet-400/10 blur-3xl" />
-          <div className="absolute bottom-[-10rem] left-[-6rem] h-[24rem] w-[24rem] rounded-full bg-emerald-300/10 blur-3xl" />
+          <div data-parallax-strength="10" className="parallax absolute -top-32 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
+          <div data-parallax-strength="18" className="parallax absolute top-[26rem] right-[-8rem] h-[24rem] w-[24rem] rounded-full bg-violet-400/10 blur-3xl" />
+          <div data-parallax-strength="14" className="parallax absolute bottom-[-10rem] left-[-6rem] h-[24rem] w-[24rem] rounded-full bg-emerald-300/10 blur-3xl" />
         </div>
 
         <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
@@ -47,7 +49,7 @@ export default function Home() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className="inline-flex rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                      className="nav-link inline-flex rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                     >
                       {link.label}
                     </a>
@@ -75,17 +77,17 @@ export default function Home() {
 
               <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-start">
                 <div>
-                  <p className="inline-flex rounded-full border border-cyan-200/35 bg-cyan-300/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cyan-100">
+                  <p className="hero-anim inline-flex rounded-full border border-cyan-200/35 bg-cyan-300/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cyan-100">
                     {hero.eyebrow}
                   </p>
-                  <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.35rem]">
+                  <h1 className="hero-anim hero-delay-1 mt-5 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.35rem]">
                     {hero.headline}
                   </h1>
-                  <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                  <p className="hero-anim hero-delay-2 mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
                     {hero.supportingText}
                   </p>
 
-                  <div className="mt-8 flex flex-wrap gap-3">
+                  <div className="hero-anim hero-delay-3 mt-8 flex flex-wrap gap-3">
                     {hero.ctas.map((heroCta) => (
                       <a
                         key={heroCta.label}
@@ -93,14 +95,14 @@ export default function Home() {
                         download={heroCta.download}
                         target={heroCta.external ? "_blank" : undefined}
                         rel={heroCta.external ? "noreferrer" : undefined}
-                        className={heroCtaClassMap[heroCta.variant]}
+                        className={`${heroCtaClassMap[heroCta.variant]} magnetic-btn`}
                       >
                         {heroCta.label}
                       </a>
                     ))}
                   </div>
 
-                  <p className="mt-8 text-sm font-medium text-cyan-100">{hero.availability}</p>
+                  <p className="hero-anim hero-delay-4 mt-8 text-sm font-medium text-cyan-100">{hero.availability}</p>
 
                   <ul className="mt-5 grid gap-3 text-sm text-slate-300 sm:text-[0.95rem]">
                     {hero.trustLine.map((line) => (
