@@ -74,7 +74,7 @@ export default function Home() {
 
         <main id="main-content" className="mx-auto w-full max-w-7xl px-4 pb-24 pt-10 sm:px-6 sm:pt-16 lg:px-8">
           <SectionReveal>
-            <section className="premium-panel premium-outline relative overflow-hidden rounded-3xl p-6 sm:p-10 lg:p-12">
+            <section className="hero-stage premium-panel premium-outline relative overflow-hidden rounded-3xl p-6 sm:p-10 lg:p-12">
               <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(34,211,238,0.18),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(167,139,250,0.14),transparent_40%),linear-gradient(160deg,rgba(15,23,42,0.9),rgba(2,6,23,0.98))]" />
 
               <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-start">
@@ -82,14 +82,14 @@ export default function Home() {
                   <p className="hero-anim inline-flex rounded-full border border-cyan-200/35 bg-cyan-300/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cyan-100">
                     {hero.eyebrow}
                   </p>
-                  <h1 className="hero-anim hero-delay-1 mt-5 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.35rem]">
+                  <h1 className="hero-title-display hero-anim hero-delay-1 mt-5 max-w-4xl font-semibold text-white">
                     {hero.headline}
                   </h1>
-                  <p className="hero-anim hero-delay-2 mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                  <p className="hero-support hero-anim hero-delay-2 mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
                     {hero.supportingText}
                   </p>
 
-                  <div className="hero-anim hero-delay-3 mt-8 flex flex-wrap gap-3">
+                  <div className="hero-cta-row hero-anim hero-delay-3 mt-8 flex flex-wrap gap-3">
                     {hero.ctas.map((heroCta) => (
                       <a
                         key={heroCta.label}
@@ -158,6 +158,12 @@ export default function Home() {
                     </div>
                   </div>
                 </aside>
+              </div>
+
+              <div className="hero-anim hero-delay-4 mt-8 border-t border-white/10 pt-5">
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-cyan-100/80">
+                  Build velocity • Product reliability • Production outcomes
+                </p>
               </div>
             </section>
           </SectionReveal>
