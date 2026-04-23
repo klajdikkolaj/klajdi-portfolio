@@ -3,6 +3,8 @@
 :root {
   --background: #020617;
   --foreground: #e2e8f0;
+  --accent-cyan: 34 211 238;
+  --accent-violet: 167 139 250;
 }
 
 @theme inline {
@@ -26,7 +28,10 @@ html.motion-safe {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    radial-gradient(circle at 20% -10%, rgb(var(--accent-cyan) / 0.1), transparent 35%),
+    radial-gradient(circle at 90% 0%, rgb(var(--accent-violet) / 0.1), transparent 38%),
+    var(--background);
   color: var(--foreground);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
@@ -65,14 +70,14 @@ p {
 }
 
 .premium-panel {
-  background: linear-gradient(160deg, rgb(15 23 42 / 72%), rgb(2 6 23 / 90%));
+  background: linear-gradient(160deg, rgb(15 23 42 / 78%), rgb(1 4 15 / 95%));
   backdrop-filter: blur(10px);
 }
 
 .premium-outline {
   border: 1px solid rgb(148 163 184 / 20%);
   box-shadow:
-    0 20px 45px rgb(2 6 23 / 32%),
+    0 24px 58px rgb(2 6 23 / 42%),
     inset 0 1px 0 rgb(255 255 255 / 3%);
 }
 
@@ -99,11 +104,11 @@ p {
 }
 
 .hero-title-display {
-  font-size: clamp(2.15rem, 6.2vw, 4.6rem);
+  font-size: clamp(2.4rem, 7.2vw, 5.2rem);
   line-height: 0.98;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
   text-wrap: balance;
-  text-shadow: 0 0 28px rgb(56 189 248 / 0.14);
+  text-shadow: 0 0 34px rgb(56 189 248 / 0.18);
 }
 
 .hero-support {
@@ -125,10 +130,10 @@ p {
 }
 
 .card-lift:hover {
-  transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+  transform: translateY(-10px) rotateX(2.5deg) rotateY(-2.5deg);
   border-color: rgb(103 232 249 / 40%);
   box-shadow:
-    0 20px 45px rgb(2 6 23 / 34%),
+    0 26px 58px rgb(2 6 23 / 44%),
     0 0 0 1px rgb(103 232 249 / 12%);
 }
 
@@ -142,7 +147,7 @@ p {
   pointer-events: none;
   z-index: 5;
   background: radial-gradient(
-    340px circle at var(--pointer-x) var(--pointer-y),
+    420px circle at var(--pointer-x) var(--pointer-y),
     rgb(56 189 248 / 0.16),
     transparent 60%
   );
@@ -221,7 +226,7 @@ body.page-ready .hero-anim {
   display: flex;
   width: max-content;
   min-width: 100%;
-  animation: marquee-left 22s linear infinite;
+  animation: marquee-left 18s linear infinite;
 }
 
 .marquee-content {
@@ -243,8 +248,8 @@ body.page-ready .hero-anim {
 
 .reveal {
   opacity: 0;
-  transform: translateY(30px) scale(0.985);
-  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1), transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(38px) scale(0.975);
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal-visible {
