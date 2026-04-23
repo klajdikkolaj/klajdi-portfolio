@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MobileNav } from "@/components/mobile-nav";
 import { MotionEffects } from "@/components/motion-effects";
+import { ScrollProgress } from "@/components/scroll-progress";
 import { SectionReveal } from "@/components/section-reveal";
 import { portfolioContent } from "@/content/portfolio";
 
@@ -20,6 +21,7 @@ export default function Home() {
   return (
     <>
       <MotionEffects />
+      <ScrollProgress />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-slate-100 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
@@ -156,6 +158,33 @@ export default function Home() {
                     </div>
                   </div>
                 </aside>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-10 sm:mt-12">
+            <section aria-label="Kinetic highlights" className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 py-3">
+              <div className="marquee-track">
+                <div className="marquee-content text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/90">
+                  <span>Senior Full-Stack & AI Product Engineer</span>
+                  <span>•</span>
+                  <span>TypeScript / Next.js / Go / PostgreSQL</span>
+                  <span>•</span>
+                  <span>Production-safe AI workflows</span>
+                  <span>•</span>
+                  <span>Open to remote senior roles</span>
+                  <span>•</span>
+                </div>
+                <div className="marquee-content text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/90" aria-hidden="true">
+                  <span>Senior Full-Stack & AI Product Engineer</span>
+                  <span>•</span>
+                  <span>TypeScript / Next.js / Go / PostgreSQL</span>
+                  <span>•</span>
+                  <span>Production-safe AI workflows</span>
+                  <span>•</span>
+                  <span>Open to remote senior roles</span>
+                  <span>•</span>
+                </div>
               </div>
             </section>
           </SectionReveal>

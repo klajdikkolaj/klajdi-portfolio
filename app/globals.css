@@ -155,6 +155,30 @@ body.page-ready .hero-anim {
   transition: transform 220ms ease;
 }
 
+.marquee-track {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+  animation: marquee-left 22s linear infinite;
+}
+
+.marquee-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 1rem;
+  white-space: nowrap;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -175,10 +199,12 @@ body.page-ready .hero-anim {
   .hero-anim,
   .parallax,
   .magnetic-btn,
-  .nav-link::after {
+  .nav-link::after,
+  .marquee-track {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
+    animation: none !important;
   }
 
   .card-lift,
