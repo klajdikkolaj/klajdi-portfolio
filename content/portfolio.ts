@@ -271,6 +271,38 @@ export const portfolioContent = {
     experienceTitle: "Professional Experience",
     caseStudies: [
       {
+        name: "EvoContinuity Marketing Experience",
+        context: "Live product site (2026)",
+        problem:
+          "Create a clarity-first marketing website for Eternia with stronger narrative structure, trust framing, and modern interactive presentation.",
+        role:
+          "Product engineer and designer responsible for information architecture, visual direction, implementation, and deployment.",
+        implementation: [
+          "Built and shipped a fast static marketing experience optimized for Vercel deployment",
+          "Structured content around governed AI, continuity, and trust-based product positioning",
+          "Integrated analytics and production domain operations for ongoing iteration",
+        ],
+        outcomes: [
+          "Delivered a production public-facing brand site with clear narrative flow",
+          "Improved visual polish and credibility for partner/investor conversations",
+          "Established a reusable pattern for rapid marketing-site iteration",
+        ],
+        stack: [
+          "HTML/CSS/JS",
+          "Vercel",
+          "Web Analytics",
+          "Speed Insights",
+          "Product messaging",
+        ],
+        links: [
+          {
+            label: "Live Site",
+            href: "https://evo-continuity.world/",
+            external: true,
+          },
+        ],
+      },
+      {
         name: "ISP Provisioning & Operations Platform",
         context: "CDLAN (06/2023 — 03/2026)",
         problem:
