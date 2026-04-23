@@ -31,6 +31,8 @@ body {
   line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  --pointer-x: 50vw;
+  --pointer-y: 20vh;
 }
 
 ::selection {
@@ -128,6 +130,23 @@ p {
   box-shadow:
     0 20px 45px rgb(2 6 23 / 34%),
     0 0 0 1px rgb(103 232 249 / 12%);
+}
+
+.tilt-card {
+  will-change: transform;
+}
+
+.cursor-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    340px circle at var(--pointer-x) var(--pointer-y),
+    rgb(56 189 248 / 0.16),
+    transparent 60%
+  );
+  transition: background-position 90ms linear;
 }
 
 .hero-anim {
@@ -243,7 +262,8 @@ body.page-ready .hero-anim {
   .parallax,
   .magnetic-btn,
   .nav-link::after,
-  .marquee-track {
+  .marquee-track,
+  .cursor-glow {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;

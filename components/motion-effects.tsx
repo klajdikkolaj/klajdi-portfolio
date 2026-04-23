@@ -11,6 +11,9 @@ export function MotionEffects() {
     if (reduce) return;
 
     const handlePointer = (event: PointerEvent) => {
+      document.body.style.setProperty("--pointer-x", `${event.clientX}px`);
+      document.body.style.setProperty("--pointer-y", `${event.clientY}px`);
+
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
       const dx = (event.clientX - cx) / cx;
@@ -32,11 +35,29 @@ export function MotionEffects() {
           el.style.transform = "translate3d(0,0,0)";
         }
       });
+
+      document.querySelectorAll<HTMLElement>(".tilt-card").forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const x = event.clientX - (rect.left + rect.width / 2);
+        const y = event.clientY - (rect.top + rect.height / 2);
+        const near = Math.abs(x) < rect.width * 0.8 && Math.abs(y) < rect.height * 0.8;
+
+        if (near) {
+          const ry = Math.max(-8, Math.min(8, (x / rect.width) * 14));
+          const rx = Math.max(-6, Math.min(6, (-y / rect.height) * 10));
+          el.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        } else {
+          el.style.transform = "translateY(0) rotateX(0) rotateY(0)";
+        }
+      });
     };
 
     const resetMagnetic = () => {
       document.querySelectorAll<HTMLElement>(".magnetic-btn").forEach((el) => {
         el.style.transform = "translate3d(0,0,0)";
+      });
+      document.querySelectorAll<HTMLElement>(".tilt-card").forEach((el) => {
+        el.style.transform = "translateY(0) rotateX(0) rotateY(0)";
       });
     };
 

@@ -30,6 +30,7 @@ export default function Home() {
       </a>
 
       <div className="relative min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
+        <div className="cursor-glow" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-0 -z-10">
           <div data-parallax-strength="10" className="parallax absolute -top-32 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
           <div data-parallax-strength="18" className="parallax absolute top-[26rem] right-[-8rem] h-[24rem] w-[24rem] rounded-full bg-violet-400/10 blur-3xl" />
@@ -208,7 +209,7 @@ export default function Home() {
                 {impact.stats.map((stat) => (
                   <article
                     key={stat.label}
-                    className="premium-panel premium-outline card-lift rounded-2xl p-5"
+                    className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-5"
                   >
                     <p className="text-3xl font-semibold tracking-tight text-white">{stat.value}</p>
                     <p className="mt-2 text-sm font-semibold text-cyan-200">{stat.label}</p>
@@ -265,7 +266,7 @@ export default function Home() {
               <p className="section-label">{capabilities.sectionTitle}</p>
               <div className="mt-6 grid gap-5 lg:grid-cols-3">
                 {capabilities.services.map((service) => (
-                  <article key={service.title} className="premium-panel premium-outline card-lift rounded-2xl p-6">
+                  <article key={service.title} className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-6">
                     <h2 className="text-xl font-semibold text-white">{service.title}</h2>
                     <p className="mt-4 text-sm leading-7 text-slate-300">{service.description}</p>
 
@@ -319,7 +320,7 @@ export default function Home() {
                 {work.caseStudies.map((caseStudy) => (
                   <article
                     key={caseStudy.name}
-                    className="premium-panel premium-outline card-lift rounded-2xl p-6"
+                    className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-6"
                   >
                     <p className="text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-cyan-200/90">
                       {caseStudy.context}
