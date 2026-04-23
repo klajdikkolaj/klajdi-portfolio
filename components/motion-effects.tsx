@@ -5,8 +5,11 @@ import { useEffect } from "react";
 export function MotionEffects() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const smallScreen = window.matchMedia("(max-width: 1023px)").matches;
     document.body.classList.add("page-ready");
     document.documentElement.classList.toggle("motion-safe", !reduce);
+    document.documentElement.classList.toggle("coarse-pointer", coarsePointer);
 
     if (reduce) return;
 
@@ -32,14 +35,16 @@ export function MotionEffects() {
             },
           );
 
-          ScrollTrigger.create({
-            trigger: hero,
-            start: "top top",
-            end: "+=35%",
-            pin: true,
-            scrub: 0.6,
-            anticipatePin: 1,
-          });
+          if (!smallScreen) {
+            ScrollTrigger.create({
+              trigger: hero,
+              start: "top top",
+              end: "+=30%",
+              pin: true,
+              scrub: 0.5,
+              anticipatePin: 1,
+            });
+          }
         }
 
         gsap.utils.toArray<HTMLElement>(".parallax").forEach((el, i) => {
@@ -132,12 +137,16 @@ export function MotionEffects() {
       });
     };
 
-    window.addEventListener("pointermove", handlePointer, { passive: true });
-    window.addEventListener("pointerleave", resetMagnetic);
+    if (!coarsePointer) {
+      window.addEventListener("pointermove", handlePointer, { passive: true });
+      window.addEventListener("pointerleave", resetMagnetic);
+    }
 
     return () => {
-      window.removeEventListener("pointermove", handlePointer);
-      window.removeEventListener("pointerleave", resetMagnetic);
+      if (!coarsePointer) {
+        window.removeEventListener("pointermove", handlePointer);
+        window.removeEventListener("pointerleave", resetMagnetic);
+      }
       cleanupGsap?.();
     };
   }, []);

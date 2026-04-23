@@ -154,6 +154,10 @@ p {
   transition: background-position 90ms linear;
 }
 
+html.coarse-pointer .cursor-glow {
+  display: none;
+}
+
 .hero-anim {
   opacity: 0;
   transform: translateY(18px);
