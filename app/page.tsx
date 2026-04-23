@@ -1,13 +1,15 @@
 import Image from "next/image";
+import { MobileNav } from "@/components/mobile-nav";
+import { SectionReveal } from "@/components/section-reveal";
 import { portfolioContent } from "@/content/portfolio";
 
 const heroCtaClassMap = {
   primary:
-    "rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+    "inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_8px_30px_rgba(34,211,238,0.35)] transition hover:-translate-y-0.5 hover:bg-cyan-200 hover:shadow-[0_12px_34px_rgba(34,211,238,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
   secondary:
-    "rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+    "inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-cyan-200/60 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
   ghost:
-    "rounded-xl border border-cyan-300/30 bg-cyan-400/5 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200/50 hover:bg-cyan-300/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
+    "inline-flex items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-300/[0.08] px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200/55 hover:bg-cyan-200/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
 } as const;
 
 export default function Home() {
@@ -23,35 +25,29 @@ export default function Home() {
         Skip to content
       </a>
 
-      <div className="relative min-h-screen overflow-x-hidden bg-slate-950 text-slate-100">
+      <div className="relative min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.24),transparent_60%)]" />
-          <div className="absolute inset-x-0 top-[28rem] h-[420px] bg-[radial-gradient(circle_at_center,_rgba(14,165,233,0.14),transparent_60%)]" />
-          <div className="absolute inset-x-0 top-[72rem] h-[420px] bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.1),transparent_65%)]" />
+          <div className="absolute -top-32 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
+          <div className="absolute top-[26rem] right-[-8rem] h-[24rem] w-[24rem] rounded-full bg-violet-400/10 blur-3xl" />
+          <div className="absolute bottom-[-10rem] left-[-6rem] h-[24rem] w-[24rem] rounded-full bg-emerald-300/10 blur-3xl" />
         </div>
 
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
-          <div className="mx-auto w-full max-w-6xl px-4 py-4 sm:px-6">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Portfolio</p>
-                <p className="text-sm font-semibold text-slate-100">{person.name}</p>
-              </div>
-              <a
-                href={`mailto:${person.email}`}
-                className="rounded-lg border border-white/20 px-3 py-2 text-xs font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:text-sm"
-              >
-                Email
-              </a>
-            </div>
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
+          <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+            <a href="#main-content" className="group rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">
+              <p className="text-[0.68rem] uppercase tracking-[0.2em] text-slate-400 transition group-hover:text-cyan-200">
+                Portfolio
+              </p>
+              <p className="text-sm font-semibold text-slate-100">{person.name}</p>
+            </a>
 
-            <nav aria-label="Primary" className="mt-4">
-              <ul className="flex items-center gap-2 overflow-x-auto pb-1 text-sm text-slate-200 [scrollbar-width:none] sm:gap-3 lg:justify-end">
+            <nav aria-label="Primary" className="hidden md:block">
+              <ul className="flex items-center gap-2 lg:gap-3">
                 {navigation.map((link) => (
-                  <li key={link.href} className="shrink-0">
+                  <li key={link.href}>
                     <a
                       href={link.href}
-                      className="inline-flex rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 transition hover:border-white/30 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                      className="inline-flex rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
                     >
                       {link.label}
                     </a>
@@ -59,316 +55,398 @@ export default function Home() {
                 ))}
               </ul>
             </nav>
+
+            <div className="flex items-center gap-2">
+              <a
+                href={`mailto:${person.email}`}
+                className="hidden rounded-xl border border-white/20 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:inline-flex"
+              >
+                Email
+              </a>
+              <MobileNav links={navigation} email={person.email} />
+            </div>
           </div>
         </header>
 
-        <main id="main-content" className="mx-auto w-full max-w-6xl px-4 pb-24 pt-10 sm:px-6 sm:pt-16">
-          <section className="relative overflow-hidden rounded-3xl border border-cyan-300/20 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-7 shadow-2xl shadow-cyan-950/30 sm:p-12 lg:p-14">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                  {hero.eyebrow}
-                </p>
-                <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">
-                  {hero.headline}
-                </h1>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-                  {hero.supportingText}
-                </p>
+        <main id="main-content" className="mx-auto w-full max-w-7xl px-4 pb-24 pt-10 sm:px-6 sm:pt-16 lg:px-8">
+          <SectionReveal>
+            <section className="premium-panel premium-outline relative overflow-hidden rounded-3xl p-6 sm:p-10 lg:p-12">
+              <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(34,211,238,0.18),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(167,139,250,0.14),transparent_40%),linear-gradient(160deg,rgba(15,23,42,0.9),rgba(2,6,23,0.98))]" />
 
-                <div className="mt-8 flex flex-wrap gap-3">
-                  {hero.ctas.map((heroCta) => (
-                    <a
-                      key={heroCta.label}
-                      href={heroCta.href}
-                      download={heroCta.download}
-                      target={heroCta.external ? "_blank" : undefined}
-                      rel={heroCta.external ? "noreferrer" : undefined}
-                      className={heroCtaClassMap[heroCta.variant]}
-                    >
-                      {heroCta.label}
-                    </a>
-                  ))}
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-start">
+                <div>
+                  <p className="inline-flex rounded-full border border-cyan-200/35 bg-cyan-300/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cyan-100">
+                    {hero.eyebrow}
+                  </p>
+                  <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-5xl lg:text-[3.35rem]">
+                    {hero.headline}
+                  </h1>
+                  <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                    {hero.supportingText}
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {hero.ctas.map((heroCta) => (
+                      <a
+                        key={heroCta.label}
+                        href={heroCta.href}
+                        download={heroCta.download}
+                        target={heroCta.external ? "_blank" : undefined}
+                        rel={heroCta.external ? "noreferrer" : undefined}
+                        className={heroCtaClassMap[heroCta.variant]}
+                      >
+                        {heroCta.label}
+                      </a>
+                    ))}
+                  </div>
+
+                  <p className="mt-8 text-sm font-medium text-cyan-100">{hero.availability}</p>
+
+                  <ul className="mt-5 grid gap-3 text-sm text-slate-300 sm:text-[0.95rem]">
+                    {hero.trustLine.map((line) => (
+                      <li key={line} className="flex items-start gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-3 py-2">
+                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
+                        <span>{line}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <p className="mt-7 text-sm font-medium text-cyan-200">{hero.availability}</p>
+                <aside className="space-y-4">
+                  <div className="premium-panel premium-outline overflow-hidden rounded-2xl p-3">
+                    <div className="overflow-hidden rounded-xl border border-white/10">
+                      <Image
+                        src={person.photo.src}
+                        alt={person.photo.alt}
+                        width={person.photo.width}
+                        height={person.photo.height}
+                        priority
+                        className="h-auto w-full object-cover transition duration-500 hover:scale-[1.02]"
+                        sizes="(min-width: 1024px) 30vw, 90vw"
+                      />
+                    </div>
+                  </div>
 
-                <ul className="mt-6 space-y-3 text-sm text-slate-300 sm:text-base">
-                  {hero.trustLine.map((line) => (
-                    <li key={line} className="flex items-start gap-3">
-                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <div className="premium-panel premium-outline rounded-2xl p-5">
+                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                      Professional profile
+                    </p>
+                    <p className="mt-2 text-lg font-semibold text-white">{person.name}</p>
+                    <p className="mt-1 text-sm text-cyan-200">{person.role}</p>
+                    <p className="mt-2 text-sm text-slate-300">{person.location}</p>
+                    <div className="mt-5 grid gap-2 text-sm">
+                      <a
+                        href={person.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-lg border border-white/12 bg-white/[0.02] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.05]"
+                      >
+                        LinkedIn
+                      </a>
+                      <a
+                        href={person.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rounded-lg border border-white/12 bg-white/[0.02] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.05]"
+                      >
+                        GitHub
+                      </a>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section aria-label={impact.sectionTitle}>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="section-label">{impact.sectionTitle}</p>
+                  <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">{impact.intro}</p>
+                </div>
               </div>
 
-              <aside className="rounded-2xl border border-white/10 bg-slate-900/70 p-4 shadow-xl shadow-slate-950/30">
-                <div className="overflow-hidden rounded-xl border border-white/10">
-                  <Image
-                    src={person.photo.src}
-                    alt={person.photo.alt}
-                    width={person.photo.width}
-                    height={person.photo.height}
-                    priority
-                    className="h-auto w-full object-cover"
-                    sizes="(min-width: 1024px) 32vw, 90vw"
-                  />
-                </div>
-                <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm font-semibold text-white">{person.name}</p>
-                  <p className="mt-1 text-sm text-cyan-200">{person.role}</p>
-                  <p className="mt-2 text-xs uppercase tracking-[0.18em] text-slate-400">
-                    {person.location}
-                  </p>
-                </div>
-              </aside>
-            </div>
-          </section>
+              <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                {impact.stats.map((stat) => (
+                  <article
+                    key={stat.label}
+                    className="premium-panel premium-outline card-lift rounded-2xl p-5"
+                  >
+                    <p className="text-3xl font-semibold tracking-tight text-white">{stat.value}</p>
+                    <p className="mt-2 text-sm font-semibold text-cyan-200">{stat.label}</p>
+                    <p className="mt-3 text-sm leading-6 text-slate-400">{stat.note}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
 
-          <section className="mt-20" aria-label={impact.sectionTitle}>
-            <div className="mb-7">
-              <p className="text-sm font-semibold uppercase tracking-[0.15em] text-cyan-300">
-                {impact.sectionTitle}
-              </p>
-              <p className="mt-2 text-slate-300">{impact.intro}</p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              {impact.stats.map((stat) => (
-                <article
-                  key={stat.label}
-                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-5"
-                >
-                  <p className="text-2xl font-semibold text-white">{stat.value}</p>
-                  <p className="mt-2 text-sm font-medium text-cyan-200">{stat.label}</p>
-                  <p className="mt-3 text-sm leading-6 text-slate-400">{stat.note}</p>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="about" className="mt-20 scroll-mt-28">
-            <h2 className="text-3xl font-semibold tracking-tight text-white">{about.sectionTitle}</h2>
-            <div className="mt-6 max-w-4xl space-y-5 text-slate-300">
-              {about.paragraphs.map((paragraph) => (
-                <p key={paragraph} className="leading-8">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </section>
-
-          <section id="capabilities" className="mt-20 scroll-mt-28">
-            <h2 className="text-3xl font-semibold tracking-tight text-white">
-              {capabilities.sectionTitle}
-            </h2>
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {capabilities.services.map((service) => (
-                <article
-                  key={service.title}
-                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                >
-                  <h3 className="text-lg font-semibold text-cyan-200">{service.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-slate-300">{service.description}</p>
-                  <ul className="mt-5 space-y-2 text-sm text-slate-300">
-                    {service.outcomes.map((outcome) => (
-                      <li key={outcome} className="flex items-start gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                        <span>{outcome}</span>
-                      </li>
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section id="about" className="scroll-mt-28">
+              <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-8">
+                <article className="premium-panel premium-outline rounded-2xl p-6 sm:p-8">
+                  <h2 className="text-3xl font-semibold tracking-tight text-white">{about.sectionTitle}</h2>
+                  <div className="mt-5 space-y-4 text-slate-300">
+                    {about.paragraphs.map((paragraph) => (
+                      <p key={paragraph} className="leading-8">
+                        {paragraph}
+                      </p>
                     ))}
-                  </ul>
+                  </div>
                 </article>
-              ))}
-            </div>
-          </section>
 
-          <section className="mt-20">
-            <h2 className="text-3xl font-semibold tracking-tight text-white">{skills.sectionTitle}</h2>
-            <div className="mt-7 grid gap-5 lg:grid-cols-3">
-              {skills.groups.map((group) => (
-                <article
-                  key={group.title}
-                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                >
-                  <h3 className="text-base font-semibold text-cyan-200">{group.title}</h3>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <li
-                        key={skill}
-                        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-slate-200"
-                      >
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="case-studies" className="mt-20 scroll-mt-28" aria-label={work.sectionTitle}>
-            <h2 className="text-3xl font-semibold tracking-tight text-white">{work.caseStudiesTitle}</h2>
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {work.caseStudies.map((caseStudy) => (
-                <article
-                  key={caseStudy.name}
-                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                    {caseStudy.context}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold text-white">{caseStudy.name}</h3>
-
-                  <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300">
-                    <p>
-                      <span className="font-semibold text-slate-100">Problem:</span> {caseStudy.problem}
-                    </p>
-                    <p>
-                      <span className="font-semibold text-slate-100">Role:</span> {caseStudy.role}
-                    </p>
-                  </div>
-
-                  <div className="mt-5">
-                    <p className="text-sm font-semibold text-cyan-200">Implementation</p>
-                    <ul className="mt-2 space-y-2 text-sm text-slate-300">
-                      {caseStudy.implementation.map((item) => (
-                        <li key={item} className="flex items-start gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mt-5">
-                    <p className="text-sm font-semibold text-cyan-200">Outcomes</p>
-                    <ul className="mt-2 space-y-2 text-sm text-slate-300">
-                      {caseStudy.outcomes.map((item) => (
-                        <li key={item} className="flex items-start gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {caseStudy.stack.map((item) => (
-                      <li
-                        key={item}
-                        className="rounded-md border border-cyan-300/30 bg-cyan-400/5 px-2 py-1 text-xs text-cyan-100"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    {caseStudy.links.map((link) => (
+                <article className="premium-panel premium-outline rounded-2xl p-6 sm:p-8">
+                  <p className="section-label">Contact</p>
+                  <p className="mt-3 text-base text-slate-300">Recruiter or team lead? Reach out directly.</p>
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-cyan-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                  >
+                    {contact.email}
+                  </a>
+                  <div className="mt-4 grid gap-2 text-sm">
+                    {contact.links.map((link) => (
                       <a
-                        key={link.href}
+                        key={link.label}
                         href={link.href}
                         target={link.external ? "_blank" : undefined}
                         rel={link.external ? "noreferrer" : undefined}
-                        className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white transition hover:border-white/40 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                        className="rounded-lg border border-white/12 bg-white/[0.03] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.06]"
                       >
                         {link.label}
                       </a>
                     ))}
                   </div>
                 </article>
-              ))}
-            </div>
-          </section>
-
-          <section id="experience" className="mt-20 scroll-mt-28">
-            <h2 className="text-3xl font-semibold tracking-tight text-white">{work.experienceTitle}</h2>
-            <div className="mt-6 space-y-4">
-              {work.experience.map((item) => (
-                <article
-                  key={`${item.title}-${item.organization}-${item.period}`}
-                  className="rounded-2xl border border-white/10 bg-slate-900/60 p-6"
-                >
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                      {item.period}
-                    </p>
-                    <p className="rounded-full border border-white/15 bg-white/[0.03] px-2.5 py-1 text-xs text-slate-200">
-                      {item.engagement}
-                    </p>
-                  </div>
-
-                  <h3 className="mt-3 text-base font-semibold text-white">{item.title}</h3>
-                  <p className="text-sm text-slate-300">{item.organization}</p>
-                  <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
-
-                  <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                    {item.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-start gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-20">
-            <div className="rounded-3xl border border-cyan-300/25 bg-gradient-to-r from-cyan-400/10 via-slate-900 to-emerald-400/10 p-8 sm:p-10">
-              <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-white">{cta.title}</h2>
-              <p className="mt-4 max-w-3xl leading-7 text-slate-200">{cta.description}</p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <a
-                  href={cta.primary.href}
-                  className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                >
-                  {cta.primary.label}
-                </a>
-                <a
-                  href={cta.secondary.href}
-                  download={person.resume.downloadFileName}
-                  className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                >
-                  {cta.secondary.label}
-                </a>
               </div>
-            </div>
-          </section>
+            </section>
+          </SectionReveal>
 
-          <section id="contact" className="mt-20 scroll-mt-28">
-            <div className="rounded-3xl border border-white/10 bg-slate-900/70 p-8 sm:p-10">
-              <h2 className="text-3xl font-semibold tracking-tight text-white">{contact.sectionTitle}</h2>
-              <p className="mt-3 text-xl text-cyan-200">{contact.heading}</p>
-              <p className="mt-4 max-w-3xl leading-7 text-slate-300">{contact.description}</p>
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section id="capabilities" className="scroll-mt-28">
+              <p className="section-label">{capabilities.sectionTitle}</p>
+              <div className="mt-6 grid gap-5 lg:grid-cols-3">
+                {capabilities.services.map((service) => (
+                  <article key={service.title} className="premium-panel premium-outline card-lift rounded-2xl p-6">
+                    <h2 className="text-xl font-semibold text-white">{service.title}</h2>
+                    <p className="mt-4 text-sm leading-7 text-slate-300">{service.description}</p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                >
-                  {contact.email}
-                </a>
-                {contact.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noreferrer" : undefined}
-                    className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {link.label}
-                  </a>
+                    <ul className="mt-5 space-y-2 text-sm text-slate-300">
+                      {service.outcomes.map((outcome) => (
+                        <li key={outcome} className="flex items-start gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                          <span>{outcome}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
                 ))}
               </div>
-            </div>
-          </section>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section>
+              <p className="section-label">{skills.sectionTitle}</p>
+              <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {skills.groups.map((group) => (
+                  <article key={group.title} className="premium-panel premium-outline rounded-2xl p-6">
+                    <h2 className="text-base font-semibold uppercase tracking-[0.08em] text-cyan-100">{group.title}</h2>
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {group.skills.map((skill) => (
+                        <li
+                          key={skill}
+                          className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-slate-200"
+                        >
+                          {skill}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section id="case-studies" className="scroll-mt-28" aria-label={work.sectionTitle}>
+              <div className="mb-6">
+                <p className="section-label">{work.sectionTitle}</p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                  {work.caseStudiesTitle}
+                </h2>
+              </div>
+
+              <div className="grid gap-5 lg:grid-cols-3">
+                {work.caseStudies.map((caseStudy) => (
+                  <article
+                    key={caseStudy.name}
+                    className="premium-panel premium-outline card-lift rounded-2xl p-6"
+                  >
+                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-cyan-200/90">
+                      {caseStudy.context}
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold text-white">{caseStudy.name}</h3>
+                    <p className="mt-4 text-sm leading-7 text-slate-300">
+                      <span className="font-semibold text-slate-100">Problem:</span> {caseStudy.problem}
+                    </p>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">
+                      <span className="font-semibold text-slate-100">Role:</span> {caseStudy.role}
+                    </p>
+
+                    <div className="mt-5">
+                      <p className="text-sm font-semibold text-cyan-100">Implementation</p>
+                      <ul className="mt-2 space-y-2 text-sm text-slate-300">
+                        {caseStudy.implementation.map((item) => (
+                          <li key={item} className="flex items-start gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mt-5">
+                      <p className="text-sm font-semibold text-cyan-100">Outcomes</p>
+                      <ul className="mt-2 space-y-2 text-sm text-slate-300">
+                        {caseStudy.outcomes.map((item) => (
+                          <li key={item} className="flex items-start gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-300" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <ul className="mt-5 flex flex-wrap gap-2">
+                      {caseStudy.stack.map((item) => (
+                        <li
+                          key={item}
+                          className="rounded-md border border-cyan-300/35 bg-cyan-400/8 px-2 py-1 text-xs text-cyan-100"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-5 flex flex-wrap gap-2.5">
+                      {caseStudy.links.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          target={link.external ? "_blank" : undefined}
+                          rel={link.external ? "noreferrer" : undefined}
+                          className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white transition hover:border-cyan-200/55 hover:bg-white/[0.05] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                        >
+                          {link.label}
+                        </a>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section id="experience" className="scroll-mt-28">
+              <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                {work.experienceTitle}
+              </h2>
+              <div className="mt-6 space-y-4">
+                {work.experience.map((item) => (
+                  <article
+                    key={`${item.title}-${item.organization}-${item.period}`}
+                    className="premium-panel premium-outline rounded-2xl p-6"
+                  >
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-cyan-200/90">
+                        {item.period}
+                      </p>
+                      <p className="rounded-full border border-white/15 bg-white/[0.03] px-2.5 py-1 text-xs text-slate-200">
+                        {item.engagement}
+                      </p>
+                    </div>
+
+                    <h3 className="mt-3 text-lg font-semibold text-white">{item.title}</h3>
+                    <p className="text-sm text-slate-300">{item.organization}</p>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
+
+                    <ul className="mt-4 space-y-2 text-sm text-slate-300">
+                      {item.highlights.map((highlight) => (
+                        <li key={highlight} className="flex items-start gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section>
+              <div className="premium-panel premium-outline relative overflow-hidden rounded-3xl p-7 sm:p-10">
+                <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(34,211,238,0.12),rgba(15,23,42,0.95)_40%,rgba(52,211,153,0.12))]" />
+                <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-[2.1rem]">
+                  {cta.title}
+                </h2>
+                <p className="mt-4 max-w-3xl leading-7 text-slate-200">{cta.description}</p>
+                <div className="mt-8 flex flex-wrap gap-3.5">
+                  <a
+                    href={cta.primary.href}
+                    className="inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                  >
+                    {cta.primary.label}
+                  </a>
+                  <a
+                    href={cta.secondary.href}
+                    download={person.resume.downloadFileName}
+                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                  >
+                    {cta.secondary.label}
+                  </a>
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal className="mt-16 sm:mt-20">
+            <section id="contact" className="scroll-mt-28">
+              <div className="premium-panel premium-outline rounded-3xl p-7 sm:p-10">
+                <h2 className="text-3xl font-semibold tracking-tight text-white">{contact.sectionTitle}</h2>
+                <p className="mt-3 text-xl text-cyan-100">{contact.heading}</p>
+                <p className="mt-4 max-w-3xl leading-7 text-slate-300">{contact.description}</p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                  >
+                    {contact.email}
+                  </a>
+                  {contact.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noreferrer" : undefined}
+                      className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
         </main>
 
         <footer className="border-t border-white/10 py-8">
-          <p className="mx-auto w-full max-w-6xl px-4 text-sm text-slate-400 sm:px-6">{footer.text}</p>
+          <p className="mx-auto w-full max-w-7xl px-4 text-sm text-slate-400 sm:px-6 lg:px-8">{footer.text}</p>
         </footer>
       </div>
     </>

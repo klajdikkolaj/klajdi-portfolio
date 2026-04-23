@@ -24,7 +24,9 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  line-height: 1.55;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
@@ -46,4 +48,62 @@ h4 {
 
 p {
   text-wrap: pretty;
+}
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(165 243 252);
+}
+
+.premium-panel {
+  background: linear-gradient(160deg, rgb(15 23 42 / 72%), rgb(2 6 23 / 90%));
+  backdrop-filter: blur(10px);
+}
+
+.premium-outline {
+  border: 1px solid rgb(148 163 184 / 20%);
+  box-shadow:
+    0 20px 45px rgb(2 6 23 / 32%),
+    inset 0 1px 0 rgb(255 255 255 / 3%);
+}
+
+.card-lift {
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  border-color: rgb(103 232 249 / 40%);
+  box-shadow:
+    0 20px 45px rgb(2 6 23 / 34%),
+    0 0 0 1px rgb(103 232 249 / 12%);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .card-lift,
+  .card-lift:hover,
+  .reveal,
+  .reveal-visible {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
 }
