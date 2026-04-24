@@ -136,10 +136,18 @@ p {
 
 .hero-scene-shell,
 .hero-canvas,
-.hero-scene-fallback {
+.hero-scene-fallback,
+.hero-generated-backdrop {
   position: absolute !important;
   inset: 0;
   z-index: 0;
+}
+
+.hero-generated-backdrop {
+  object-fit: cover;
+  opacity: 0.22;
+  transform: scale(1.02);
+  filter: saturate(0.92) contrast(1.08);
 }
 
 .hero-scene-shell {
@@ -279,6 +287,56 @@ p {
   text-transform: uppercase;
   white-space: nowrap;
   color: rgb(255 255 255 / 0.64);
+}
+
+.image-story-band {
+  position: relative;
+  display: grid;
+  min-height: 72svh;
+  overflow: hidden;
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  background: #000;
+}
+
+.image-story-media {
+  position: relative;
+  min-height: 58svh;
+}
+
+.image-story-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #000 0%, rgb(0 0 0 / 0.28) 34%, transparent 62%),
+    linear-gradient(to bottom, transparent 48%, #000 100%);
+}
+
+.image-story-img {
+  object-fit: cover;
+}
+
+.image-story-copy {
+  position: relative;
+  z-index: 2;
+  padding: 1rem 1rem 4rem;
+}
+
+.image-story-copy h2 {
+  max-width: 57rem;
+  margin-top: 1rem;
+  font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.88;
+}
+
+.image-story-copy p:not(.section-label) {
+  max-width: 34rem;
+  margin-top: 1.25rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: rgb(255 255 255 / 0.62);
 }
 
 .content-band {
@@ -470,7 +528,8 @@ body.page-ready .hero-anim,
   }
 
   .content-band,
-  .final-band {
+  .final-band,
+  .image-story-copy {
     padding-right: 1.75rem;
     padding-left: 1.75rem;
   }
@@ -544,6 +603,22 @@ body.page-ready .hero-anim,
     padding: 7rem 2.5rem;
   }
 
+  .image-story-band {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 82svh;
+  }
+
+  .image-story-media {
+    min-height: 82svh;
+  }
+
+  .image-story-copy {
+    position: absolute;
+    inset: auto 2.5rem 5rem 2.5rem;
+    padding: 0;
+    text-shadow: 0 2px 24px #000;
+  }
+
   .content-grid {
     grid-template-columns: 0.78fr 1.22fr;
   }
@@ -577,6 +652,10 @@ body.page-ready .hero-anim,
 
   .final-band h2 {
     font-size: 9rem;
+  }
+
+  .image-story-copy h2 {
+    font-size: 7.2rem;
   }
 }
 

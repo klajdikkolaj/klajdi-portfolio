@@ -72,7 +72,7 @@ export const portfolioContent = {
       "CI/CD",
       "n8n",
     ],
-    ogImage: "/klajdi-profile.jpg",
+    ogImage: "/generated/portfolio-orb-terrain.png",
     profilePageName: "Klajdi Kolaj Portfolio",
     knowsAbout: [
       "TypeScript",

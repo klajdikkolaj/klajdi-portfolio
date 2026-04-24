@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: portfolioContent.site.ogImage,
-        width: 800,
-        height: 1200,
-        alt: portfolioContent.person.photo.alt,
+        width: 1672,
+        height: 941,
+        alt: "Iridescent glass sphere above fractured black mineral terrain",
       },
     ],
   },
