@@ -7,73 +7,98 @@ export function MotionEffects() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const smallScreen = window.matchMedia("(max-width: 1023px)").matches;
+
     document.body.classList.add("page-ready");
     document.documentElement.classList.toggle("motion-safe", !reduce);
     document.documentElement.classList.toggle("coarse-pointer", coarsePointer);
 
-    if (reduce) return;
+    if (reduce) {
+      return;
+    }
 
+    let cancelled = false;
     let cleanupGsap: (() => void) | undefined;
 
     void (async () => {
       const { gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+
+      if (cancelled) {
+        return;
+      }
+
       gsap.registerPlugin(ScrollTrigger);
 
       const ctx = gsap.context(() => {
-        const hero = document.querySelector<HTMLElement>(".hero-stage");
-        if (hero) {
-          gsap.fromTo(
-            ".hero-anim",
-            { y: 28, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              duration: 0.9,
-              stagger: 0.12,
-              ease: "power3.out",
-            },
-          );
+        gsap.fromTo(
+          ".hero-heading > span",
+          { yPercent: 18, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.1,
+            ease: "power3.out",
+          },
+        );
 
-          if (!smallScreen) {
-            ScrollTrigger.create({
-              trigger: hero,
-              start: "top top",
-              end: "+=30%",
-              pin: true,
-              scrub: 0.5,
-              anticipatePin: 1,
-            });
-          }
-        }
+        const hero = document.querySelector<HTMLElement>(".avant-hero");
 
-        gsap.utils.toArray<HTMLElement>(".parallax").forEach((el, i) => {
-          gsap.to(el, {
-            yPercent: i % 2 === 0 ? -10 : 12,
+        if (hero && !smallScreen) {
+          gsap.to(".hero-scene-shell", {
+            scale: 1.08,
+            yPercent: -4,
             ease: "none",
             scrollTrigger: {
-              trigger: el,
-              start: "top bottom",
+              trigger: hero,
+              start: "top top",
               end: "bottom top",
-              scrub: 0.8,
+              scrub: 0.65,
             },
           });
+
+          gsap.to(".hero-title-block", {
+            yPercent: -8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.65,
+            },
+          });
+        }
+
+        gsap.utils.toArray<HTMLElement>(".project-row").forEach((row) => {
+          gsap.fromTo(
+            row,
+            { opacity: 0.62 },
+            {
+              opacity: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: row,
+                start: "top 84%",
+                end: "top 52%",
+                scrub: 0.45,
+              },
+            },
+          );
         });
 
         gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
           gsap.fromTo(
             el,
-            { y: 40, opacity: 0.01, scale: 0.985 },
+            { y: 42, opacity: 0.01 },
             {
               y: 0,
               opacity: 1,
-              scale: 1,
               ease: "power3.out",
               scrollTrigger: {
                 trigger: el,
                 start: "top 88%",
-                end: "top 48%",
-                scrub: 0.45,
+                end: "top 54%",
+                scrub: 0.48,
               },
             },
           );
@@ -81,7 +106,7 @@ export function MotionEffects() {
       });
 
       cleanupGsap = () => {
-        ScrollTrigger.getAll().forEach((t) => t.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
         ctx.revert();
       };
     })();
@@ -89,64 +114,19 @@ export function MotionEffects() {
     const handlePointer = (event: PointerEvent) => {
       document.body.style.setProperty("--pointer-x", `${event.clientX}px`);
       document.body.style.setProperty("--pointer-y", `${event.clientY}px`);
-
-      const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      const dx = (event.clientX - cx) / cx;
-      const dy = (event.clientY - cy) / cy;
-
-      document.querySelectorAll<HTMLElement>(".parallax").forEach((el) => {
-        const strength = Number(el.dataset.parallaxStrength || 12);
-        el.style.transform = `translate3d(${dx * strength}px, ${dy * strength}px, 0)`;
-      });
-
-      document.querySelectorAll<HTMLElement>(".magnetic-btn").forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const x = event.clientX - (rect.left + rect.width / 2);
-        const y = event.clientY - (rect.top + rect.height / 2);
-        const near = Math.abs(x) < rect.width * 0.9 && Math.abs(y) < rect.height * 0.9;
-        if (near) {
-          el.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0)`;
-        } else {
-          el.style.transform = "translate3d(0,0,0)";
-        }
-      });
-
-      document.querySelectorAll<HTMLElement>(".tilt-card").forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const x = event.clientX - (rect.left + rect.width / 2);
-        const y = event.clientY - (rect.top + rect.height / 2);
-        const near = Math.abs(x) < rect.width * 0.8 && Math.abs(y) < rect.height * 0.8;
-
-        if (near) {
-          const ry = Math.max(-8, Math.min(8, (x / rect.width) * 14));
-          const rx = Math.max(-6, Math.min(6, (-y / rect.height) * 10));
-          el.style.transform = `translateY(-8px) rotateX(${rx}deg) rotateY(${ry}deg)`;
-        } else {
-          el.style.transform = "translateY(0) rotateX(0) rotateY(0)";
-        }
-      });
-    };
-
-    const resetMagnetic = () => {
-      document.querySelectorAll<HTMLElement>(".magnetic-btn").forEach((el) => {
-        el.style.transform = "translate3d(0,0,0)";
-      });
-      document.querySelectorAll<HTMLElement>(".tilt-card").forEach((el) => {
-        el.style.transform = "translateY(0) rotateX(0) rotateY(0)";
-      });
     };
 
     if (!coarsePointer) {
       window.addEventListener("pointermove", handlePointer, { passive: true });
-      window.addEventListener("pointerleave", resetMagnetic);
     }
 
     return () => {
+      cancelled = true;
+
       if (!coarsePointer) {
         window.removeEventListener("pointermove", handlePointer);
-        window.removeEventListener("pointerleave", resetMagnetic);
       }
+
       cleanupGsap?.();
     };
   }, []);
