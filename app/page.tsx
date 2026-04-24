@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeroSceneLoader } from "@/components/hero-scene-loader";
 import { LocalTime } from "@/components/local-time";
 import { MobileNav } from "@/components/mobile-nav";
@@ -66,6 +67,14 @@ export default function Home() {
 
         <main id="main-content">
           <section className="avant-hero">
+            <Image
+              src="/generated/portfolio-orb-terrain.png"
+              alt=""
+              fill
+              priority
+              className="hero-generated-backdrop"
+              sizes="100vw"
+            />
             <div className="hero-scene-shell" aria-hidden="true">
               <HeroSceneLoader />
             </div>
@@ -150,6 +159,28 @@ export default function Home() {
                     <span>Open to senior roles</span>
                   </div>
                 ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section className="image-story-band" aria-label="Generated portfolio visual">
+              <div className="image-story-media">
+                <Image
+                  src="/generated/portfolio-orb-terrain.png"
+                  alt="Iridescent glass sphere floating above fractured black mineral terrain"
+                  fill
+                  className="image-story-img"
+                  sizes="100vw"
+                />
+              </div>
+              <div className="image-story-copy">
+                <p className="section-label">Generated Visual System</p>
+                <h2>Black mineral terrain, synthetic light, production-grade interfaces.</h2>
+                <p>
+                  The visual language now mirrors the work: precise systems, luminous automation, and a technical surface
+                  that feels built rather than decorated.
+                </p>
               </div>
             </section>
           </SectionReveal>
@@ -248,10 +279,19 @@ export default function Home() {
                 {work.caseStudies.map((caseStudy, index) => (
                   <article key={caseStudy.name} className="project-row">
                     <p className="project-index">{String(index + 1).padStart(2, "0")}</p>
-                    <div>
+                    <div className="project-heading">
                       <p className="font-mono text-xs uppercase text-white/44">{caseStudy.context}</p>
                       <h3 className="mt-2 text-3xl font-semibold text-white md:text-5xl">{caseStudy.name}</h3>
                     </div>
+                    <figure className="project-visual">
+                      <Image
+                        src={caseStudy.image.src}
+                        alt={caseStudy.image.alt}
+                        fill
+                        className="project-visual-img"
+                        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 24vw, 100vw"
+                      />
+                    </figure>
                     <div className="space-y-4 text-sm leading-7 text-white/60">
                       <p>
                         <strong className="text-white">Problem:</strong> {caseStudy.problem}
