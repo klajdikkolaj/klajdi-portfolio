@@ -279,10 +279,19 @@ export default function Home() {
                 {work.caseStudies.map((caseStudy, index) => (
                   <article key={caseStudy.name} className="project-row">
                     <p className="project-index">{String(index + 1).padStart(2, "0")}</p>
-                    <div>
+                    <div className="project-heading">
                       <p className="font-mono text-xs uppercase text-white/44">{caseStudy.context}</p>
                       <h3 className="mt-2 text-3xl font-semibold text-white md:text-5xl">{caseStudy.name}</h3>
                     </div>
+                    <figure className="project-visual">
+                      <Image
+                        src={caseStudy.image.src}
+                        alt={caseStudy.image.alt}
+                        fill
+                        className="project-visual-img"
+                        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 24vw, 100vw"
+                      />
+                    </figure>
                     <div className="space-y-4 text-sm leading-7 text-white/60">
                       <p>
                         <strong className="text-white">Problem:</strong> {caseStudy.problem}

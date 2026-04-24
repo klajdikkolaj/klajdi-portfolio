@@ -422,6 +422,59 @@ p {
   background: linear-gradient(90deg, rgb(168 255 246 / 0.06), rgb(255 99 200 / 0.035), transparent);
 }
 
+.project-heading {
+  position: relative;
+  z-index: 1;
+}
+
+.project-visual {
+  position: relative;
+  min-height: 13.5rem;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(135deg, rgb(168 255 246 / 0.08), transparent 34%),
+    rgb(3 4 5);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.04), 0 2rem 5rem rgb(0 0 0 / 0.42);
+  clip-path: polygon(0 0, calc(100% - 1.7rem) 0, 100% 1.7rem, 100% 100%, 0 100%);
+}
+
+.project-visual::before,
+.project-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.project-visual::before {
+  background:
+    linear-gradient(to bottom, transparent 52%, rgb(0 0 0 / 0.34) 100%),
+    linear-gradient(115deg, rgb(255 255 255 / 0.28), transparent 20%, transparent 76%, rgb(168 255 246 / 0.18));
+  mix-blend-mode: screen;
+}
+
+.project-visual::after {
+  background:
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.08) 0 1px, transparent 1px 17px),
+    linear-gradient(90deg, transparent, rgb(255 99 200 / 0.18), transparent);
+  opacity: 0.12;
+}
+
+.project-visual-img {
+  object-fit: cover;
+  filter: brightness(0.92) saturate(1.04) contrast(1.1);
+  transform: scale(1.02);
+  transition: filter 520ms ease, transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.project-row:hover .project-visual-img {
+  filter: brightness(1.05) saturate(1.16) contrast(1.14);
+  transform: scale(1.08);
+}
+
 .project-index {
   font-family: var(--font-display), var(--font-geist-sans), sans-serif;
   font-size: 3rem;
@@ -624,8 +677,13 @@ body.page-ready .hero-anim,
   }
 
   .project-row {
-    grid-template-columns: 0.22fr 0.78fr 1fr;
+    grid-template-columns: minmax(4rem, 0.16fr) minmax(15rem, 0.7fr) minmax(14rem, 0.7fr) minmax(0, 1fr);
+    align-items: start;
     padding: 3rem 2.5rem;
+  }
+
+  .project-visual {
+    min-height: 12rem;
   }
 
   .stack-row {
@@ -657,6 +715,14 @@ body.page-ready .hero-anim,
   .image-story-copy h2 {
     font-size: 7.2rem;
   }
+
+  .project-row {
+    grid-template-columns: minmax(4rem, 0.16fr) minmax(20rem, 0.84fr) minmax(19rem, 0.78fr) minmax(0, 1fr);
+  }
+
+  .project-visual {
+    min-height: 15.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -669,7 +735,8 @@ body.page-ready .hero-anim,
   .marquee-track,
   .nav-text-link,
   .link-underline,
-  .project-row {
+  .project-row,
+  .project-visual-img {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;

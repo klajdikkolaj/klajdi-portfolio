@@ -31,6 +31,10 @@ export type CaseStudyItem = {
   context: string;
   problem: string;
   role: string;
+  image: {
+    src: string;
+    alt: string;
+  };
   implementation: string[];
   outcomes: string[];
   stack: string[];
@@ -277,6 +281,10 @@ export const portfolioContent = {
           "Create a clarity-first marketing website for Eternia with stronger narrative structure, trust framing, and modern interactive presentation.",
         role:
           "Product engineer and designer responsible for information architecture, visual direction, implementation, and deployment.",
+        image: {
+          src: "/generated/project-evocontinuity.png",
+          alt: "Abstract glass archive and continuity rails representing the EvoContinuity marketing experience",
+        },
         implementation: [
           "Built and shipped a fast static marketing experience optimized for Vercel deployment",
           "Structured content around governed AI, continuity, and trust-based product positioning",
@@ -309,6 +317,10 @@ export const portfolioContent = {
           "Provisioning and partner/customer operations required heavy manual coordination across multiple systems.",
         role:
           "Full Stack Developer owning workflow automation, internal tooling, and delivery quality.",
+        image: {
+          src: "/generated/project-isp-provisioning.png",
+          alt: "Fiber-optic network topology and server infrastructure representing an ISP provisioning platform",
+        },
         implementation: [
           "Built automated provisioning flows across Appsmith, Hostbill, and Timoo",
           "Implemented partner/customer hierarchy models and operational dashboards",
@@ -343,6 +355,10 @@ export const portfolioContent = {
           "Operations teams needed clearer, faster visibility into node telemetry, usage, and network health.",
         role:
           "Full Stack Developer building dashboards, backend services, and data delivery patterns.",
+        image: {
+          src: "/generated/project-rpc-monitoring.png",
+          alt: "Distributed telemetry nodes across a dark observability plane representing decentralized RPC monitoring",
+        },
         implementation: [
           "Built React/Next.js dashboards for real-time operational visibility",
           "Implemented Go telemetry services and NestJS APIs for live data delivery",
@@ -376,6 +392,10 @@ export const portfolioContent = {
           "Manual research pipelines were time-intensive and inconsistent for recurring opportunity discovery.",
         role:
           "Product engineer designing and operating orchestrator + specialist agent workflows.",
+        image: {
+          src: "/generated/project-ai-automation.png",
+          alt: "Agent nodes and workflow rings representing AI research and opportunity automation",
+        },
         implementation: [
           "Implemented cron-driven research orchestration with strict filtering",
           "Structured outputs into actionable markdown reporting and git-synced history",
