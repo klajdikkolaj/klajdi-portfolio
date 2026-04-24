@@ -1,18 +1,10 @@
-import Image from "next/image";
+import { HeroSceneLoader } from "@/components/hero-scene-loader";
+import { LocalTime } from "@/components/local-time";
 import { MobileNav } from "@/components/mobile-nav";
 import { MotionEffects } from "@/components/motion-effects";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { SectionReveal } from "@/components/section-reveal";
 import { portfolioContent } from "@/content/portfolio";
-
-const heroCtaClassMap = {
-  primary:
-    "inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_8px_30px_rgba(34,211,238,0.35)] transition hover:-translate-y-0.5 hover:bg-cyan-200 hover:shadow-[0_12px_34px_rgba(34,211,238,0.4)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
-  secondary:
-    "inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-cyan-200/60 hover:bg-white/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
-  ghost:
-    "inline-flex items-center justify-center rounded-xl border border-cyan-300/35 bg-cyan-300/[0.08] px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:-translate-y-0.5 hover:border-cyan-200/55 hover:bg-cyan-200/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300",
-} as const;
 
 export default function Home() {
   const { person, navigation, hero, impact, about, capabilities, skills, work, cta, contact, footer } =
@@ -24,467 +16,316 @@ export default function Home() {
       <ScrollProgress />
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-slate-100 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-white/20 focus:bg-black focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
       >
         Skip to content
       </a>
 
-      <div className="relative min-h-screen overflow-x-hidden bg-[var(--background)] text-[var(--foreground)]">
-        <div className="cursor-glow" aria-hidden="true" />
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div data-parallax-strength="10" className="parallax absolute -top-32 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-cyan-300/15 blur-3xl" />
-          <div data-parallax-strength="18" className="parallax absolute top-[26rem] right-[-8rem] h-[24rem] w-[24rem] rounded-full bg-violet-400/10 blur-3xl" />
-          <div data-parallax-strength="14" className="parallax absolute bottom-[-10rem] left-[-6rem] h-[24rem] w-[24rem] rounded-full bg-emerald-300/10 blur-3xl" />
-        </div>
-
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur-xl">
-          <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
-            <a href="#main-content" className="group rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300">
-              <p className="text-[0.68rem] uppercase tracking-[0.2em] text-slate-400 transition group-hover:text-cyan-200">
-                Portfolio
-              </p>
-              <p className="text-sm font-semibold text-slate-100">{person.name}</p>
+      <div className="site-shell min-h-screen overflow-x-hidden bg-black text-white">
+        <header className="fixed inset-x-0 top-0 z-50 px-4 py-5 sm:px-7 lg:px-10">
+          <div className="grid items-start gap-5 md:grid-cols-[0.8fr_1.25fr_0.9fr_0.55fr]">
+            <a href="#main-content" className="brand-lockup focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+              <span>KLAJDI</span>
+              <span>KOLAJ</span>
             </a>
 
-            <nav aria-label="Primary" className="hidden md:block">
-              <ul className="flex items-center gap-2 lg:gap-3">
-                {navigation.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="nav-link inline-flex rounded-lg px-3 py-2 text-sm text-slate-200 transition hover:bg-white/[0.06] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <a
-                href={`mailto:${person.email}`}
-                className="hidden rounded-xl border border-white/20 bg-white/[0.03] px-3 py-2 text-xs font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:inline-flex"
-              >
-                Email
+            <p className="hidden max-w-64 font-mono text-[0.78rem] leading-5 text-white/58 md:block">
+              Available for senior product engineering:
+              <br />
+              <a className="link-underline text-white" href={`mailto:${person.email}`}>
+                {person.email}
               </a>
+            </p>
+
+            <p className="hidden font-mono text-[0.78rem] leading-5 text-white/70 lg:block">
+              <strong className="block text-white">Next.js, React, R3F</strong>
+              AI workflows, Node, Go
+              <br />
+              PostgreSQL, PostGIS
+            </p>
+
+            <div className="flex justify-end md:block">
+              <nav aria-label="Primary" className="hidden text-right font-mono text-[0.82rem] leading-6 md:block">
+                <ul>
+                  {navigation.slice(0, 4).map((link, index) => (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        className={`nav-text-link ${index === 0 ? "text-white" : "text-white/48"}`}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
               <MobileNav links={navigation} email={person.email} />
             </div>
           </div>
         </header>
 
-        <main id="main-content" className="mx-auto w-full max-w-7xl px-4 pb-24 pt-10 sm:px-6 sm:pt-16 lg:px-8">
-          <SectionReveal>
-            <section className="hero-stage premium-panel premium-outline relative overflow-hidden rounded-3xl p-6 sm:p-10 lg:p-12">
-              <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,rgba(34,211,238,0.18),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(167,139,250,0.14),transparent_40%),linear-gradient(160deg,rgba(15,23,42,0.9),rgba(2,6,23,0.98))]" />
+        <main id="main-content">
+          <section className="avant-hero">
+            <div className="hero-scene-shell" aria-hidden="true">
+              <HeroSceneLoader />
+            </div>
+            <div className="hero-noise" aria-hidden="true" />
+            <div className="hero-eclipse" aria-hidden="true" />
 
-              <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-start">
-                <div>
-                  <p className="hero-anim inline-flex rounded-full border border-cyan-200/35 bg-cyan-300/10 px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-cyan-100">
-                    {hero.eyebrow}
-                  </p>
-                  <h1 className="hero-title-display hero-anim hero-delay-1 mt-5 max-w-4xl font-semibold text-white">
-                    {hero.headline}
-                  </h1>
-                  <p className="hero-support hero-anim hero-delay-2 mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-                    {hero.supportingText}
-                  </p>
-
-                  <div className="hero-cta-row hero-anim hero-delay-3 mt-8 flex flex-wrap gap-3">
-                    {hero.ctas.map((heroCta) => (
-                      <a
-                        key={heroCta.label}
-                        href={heroCta.href}
-                        download={heroCta.download}
-                        target={heroCta.external ? "_blank" : undefined}
-                        rel={heroCta.external ? "noreferrer" : undefined}
-                        className={`${heroCtaClassMap[heroCta.variant]} magnetic-btn`}
-                      >
-                        {heroCta.label}
-                      </a>
-                    ))}
-                  </div>
-
-                  <p className="hero-anim hero-delay-4 mt-8 text-sm font-medium text-cyan-100">{hero.availability}</p>
-
-                  <ul className="mt-5 grid gap-3 text-sm text-slate-300 sm:text-[0.95rem]">
-                    {hero.trustLine.map((line) => (
-                      <li key={line} className="flex items-start gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-3 py-2">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300" />
-                        <span>{line}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <aside className="space-y-4">
-                  <div className="premium-panel premium-outline overflow-hidden rounded-2xl p-3">
-                    <div className="overflow-hidden rounded-xl border border-white/10">
-                      <Image
-                        src={person.photo.src}
-                        alt={person.photo.alt}
-                        width={person.photo.width}
-                        height={person.photo.height}
-                        priority
-                        className="h-auto w-full object-cover transition duration-500 hover:scale-[1.02]"
-                        sizes="(min-width: 1024px) 30vw, 90vw"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="premium-panel premium-outline rounded-2xl p-5">
-                    <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-slate-400">
-                      Professional profile
-                    </p>
-                    <p className="mt-2 text-lg font-semibold text-white">{person.name}</p>
-                    <p className="mt-1 text-sm text-cyan-200">{person.role}</p>
-                    <p className="mt-2 text-sm text-slate-300">{person.location}</p>
-                    <div className="mt-5 grid gap-2 text-sm">
-                      <a
-                        href={person.linkedin}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="rounded-lg border border-white/12 bg-white/[0.02] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.05]"
-                      >
-                        LinkedIn
-                      </a>
-                      <a
-                        href={person.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="rounded-lg border border-white/12 bg-white/[0.02] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.05]"
-                      >
-                        GitHub
-                      </a>
-                    </div>
-                  </div>
-                </aside>
+            <div className="hero-composition">
+              <div className="hero-title-block">
+                <p className="hero-anim hero-kicker">{hero.eyebrow}</p>
+                <h1 className="hero-anim hero-delay-1 hero-heading" aria-label={`${person.name}, creative developer`}>
+                  <span className="hero-script">{person.name}</span>
+                  <span className="hero-main-word">CREATIVE</span>
+                  <span className="hero-main-word">DEVELOPER.</span>
+                </h1>
               </div>
 
-              <div className="hero-anim hero-delay-4 mt-8 border-t border-white/10 pt-5">
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-cyan-100/80">
-                  Build velocity • Product reliability • Production outcomes
+              <aside className="hero-anim hero-delay-3 hero-bio" aria-label="Intro">
+                <p>
+                  Hi, I&apos;m <strong>{person.name}</strong>, an EU-based{" "}
+                  <strong>full-stack and AI product engineer</strong>.
                 </p>
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-10 sm:mt-12">
-            <section aria-label="Kinetic highlights" className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 py-3">
-              <div className="marquee-track">
-                <div className="marquee-content text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/90">
-                  <span>Senior Full-Stack & AI Product Engineer</span>
-                  <span>•</span>
-                  <span>TypeScript / Next.js / Go / PostgreSQL</span>
-                  <span>•</span>
-                  <span>Production-safe AI workflows</span>
-                  <span>•</span>
-                  <span>Open to remote senior roles</span>
-                  <span>•</span>
-                </div>
-                <div className="marquee-content text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100/90" aria-hidden="true">
-                  <span>Senior Full-Stack & AI Product Engineer</span>
-                  <span>•</span>
-                  <span>TypeScript / Next.js / Go / PostgreSQL</span>
-                  <span>•</span>
-                  <span>Production-safe AI workflows</span>
-                  <span>•</span>
-                  <span>Open to remote senior roles</span>
-                  <span>•</span>
-                </div>
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section aria-label={impact.sectionTitle}>
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="section-label">{impact.sectionTitle}</p>
-                  <p className="mt-2 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">{impact.intro}</p>
-                </div>
-              </div>
-
-              <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-                {impact.stats.map((stat) => (
-                  <article
-                    key={stat.label}
-                    className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-5"
-                  >
-                    <p className="text-3xl font-semibold tracking-tight text-white">{stat.value}</p>
-                    <p className="mt-2 text-sm font-semibold text-cyan-200">{stat.label}</p>
-                    <p className="mt-3 text-sm leading-6 text-slate-400">{stat.note}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section id="about" className="scroll-mt-28">
-              <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr] lg:gap-8">
-                <article className="premium-panel premium-outline rounded-2xl p-6 sm:p-8">
-                  <h2 className="text-3xl font-semibold tracking-tight text-white">{about.sectionTitle}</h2>
-                  <div className="mt-5 space-y-4 text-slate-300">
-                    {about.paragraphs.map((paragraph) => (
-                      <p key={paragraph} className="leading-8">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </article>
-
-                <article className="premium-panel premium-outline rounded-2xl p-6 sm:p-8">
-                  <p className="section-label">Contact</p>
-                  <p className="mt-3 text-base text-slate-300">Recruiter or team lead? Reach out directly.</p>
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-cyan-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {contact.email}
-                  </a>
-                  <div className="mt-4 grid gap-2 text-sm">
-                    {contact.links.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target={link.external ? "_blank" : undefined}
-                        rel={link.external ? "noreferrer" : undefined}
-                        className="rounded-lg border border-white/12 bg-white/[0.03] px-3 py-2 text-slate-200 transition hover:border-cyan-200/55 hover:bg-white/[0.06]"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                </article>
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section id="capabilities" className="scroll-mt-28">
-              <p className="section-label">{capabilities.sectionTitle}</p>
-              <div className="mt-6 grid gap-5 lg:grid-cols-3">
-                {capabilities.services.map((service) => (
-                  <article key={service.title} className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-6">
-                    <h2 className="text-xl font-semibold text-white">{service.title}</h2>
-                    <p className="mt-4 text-sm leading-7 text-slate-300">{service.description}</p>
-
-                    <ul className="mt-5 space-y-2 text-sm text-slate-300">
-                      {service.outcomes.map((outcome) => (
-                        <li key={outcome} className="flex items-start gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                          <span>{outcome}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section>
-              <p className="section-label">{skills.sectionTitle}</p>
-              <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {skills.groups.map((group) => (
-                  <article key={group.title} className="premium-panel premium-outline rounded-2xl p-6">
-                    <h2 className="text-base font-semibold uppercase tracking-[0.08em] text-cyan-100">{group.title}</h2>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {group.skills.map((skill) => (
-                        <li
-                          key={skill}
-                          className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-slate-200"
-                        >
-                          {skill}
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section id="case-studies" className="scroll-mt-28" aria-label={work.sectionTitle}>
-              <div className="mb-6">
-                <p className="section-label">{work.sectionTitle}</p>
-                <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                  {work.caseStudiesTitle}
-                </h2>
-              </div>
-
-              <div className="grid gap-5 lg:grid-cols-3">
-                {work.caseStudies.map((caseStudy) => (
-                  <article
-                    key={caseStudy.name}
-                    className="premium-panel premium-outline card-lift tilt-card rounded-2xl p-6"
-                  >
-                    <p className="text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-cyan-200/90">
-                      {caseStudy.context}
-                    </p>
-                    <h3 className="mt-2 text-lg font-semibold text-white">{caseStudy.name}</h3>
-                    <p className="mt-4 text-sm leading-7 text-slate-300">
-                      <span className="font-semibold text-slate-100">Problem:</span> {caseStudy.problem}
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">
-                      <span className="font-semibold text-slate-100">Role:</span> {caseStudy.role}
-                    </p>
-
-                    <div className="mt-5">
-                      <p className="text-sm font-semibold text-cyan-100">Implementation</p>
-                      <ul className="mt-2 space-y-2 text-sm text-slate-300">
-                        {caseStudy.implementation.map((item) => (
-                          <li key={item} className="flex items-start gap-2">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mt-5">
-                      <p className="text-sm font-semibold text-cyan-100">Outcomes</p>
-                      <ul className="mt-2 space-y-2 text-sm text-slate-300">
-                        {caseStudy.outcomes.map((item) => (
-                          <li key={item} className="flex items-start gap-2">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-emerald-300" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <ul className="mt-5 flex flex-wrap gap-2">
-                      {caseStudy.stack.map((item) => (
-                        <li
-                          key={item}
-                          className="rounded-md border border-cyan-300/35 bg-cyan-400/8 px-2 py-1 text-xs text-cyan-100"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-5 flex flex-wrap gap-2.5">
-                      {caseStudy.links.map((link) => (
-                        <a
-                          key={link.href}
-                          href={link.href}
-                          target={link.external ? "_blank" : undefined}
-                          rel={link.external ? "noreferrer" : undefined}
-                          className="rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-white transition hover:border-cyan-200/55 hover:bg-white/[0.05] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                        >
-                          {link.label}
-                        </a>
-                      ))}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section id="experience" className="scroll-mt-28">
-              <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                {work.experienceTitle}
-              </h2>
-              <div className="mt-6 space-y-4">
-                {work.experience.map((item) => (
-                  <article
-                    key={`${item.title}-${item.organization}-${item.period}`}
-                    className="premium-panel premium-outline rounded-2xl p-6"
-                  >
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.17em] text-cyan-200/90">
-                        {item.period}
-                      </p>
-                      <p className="rounded-full border border-white/15 bg-white/[0.03] px-2.5 py-1 text-xs text-slate-200">
-                        {item.engagement}
-                      </p>
-                    </div>
-
-                    <h3 className="mt-3 text-lg font-semibold text-white">{item.title}</h3>
-                    <p className="text-sm text-slate-300">{item.organization}</p>
-                    <p className="mt-3 text-sm leading-7 text-slate-300">{item.description}</p>
-
-                    <ul className="mt-4 space-y-2 text-sm text-slate-300">
-                      {item.highlights.map((highlight) => (
-                        <li key={highlight} className="flex items-start gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan-300" />
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </article>
-                ))}
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section>
-              <div className="premium-panel premium-outline relative overflow-hidden rounded-3xl p-7 sm:p-10">
-                <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(34,211,238,0.12),rgba(15,23,42,0.95)_40%,rgba(52,211,153,0.12))]" />
-                <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-[2.1rem]">
-                  {cta.title}
-                </h2>
-                <p className="mt-4 max-w-3xl leading-7 text-slate-200">{cta.description}</p>
-                <div className="mt-8 flex flex-wrap gap-3.5">
-                  <a
-                    href={cta.primary.href}
-                    className="inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {cta.primary.label}
-                  </a>
-                  <a
-                    href={cta.secondary.href}
-                    download={person.resume.downloadFileName}
-                    className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {cta.secondary.label}
-                  </a>
-                </div>
-              </div>
-            </section>
-          </SectionReveal>
-
-          <SectionReveal className="mt-16 sm:mt-20">
-            <section id="contact" className="scroll-mt-28">
-              <div className="premium-panel premium-outline rounded-3xl p-7 sm:p-10">
-                <h2 className="text-3xl font-semibold tracking-tight text-white">{contact.sectionTitle}</h2>
-                <p className="mt-3 text-xl text-cyan-100">{contact.heading}</p>
-                <p className="mt-4 max-w-3xl leading-7 text-slate-300">{contact.description}</p>
-
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href={`mailto:${contact.email}`}
-                    className="inline-flex items-center justify-center rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
-                  >
-                    {contact.email}
-                  </a>
-                  {contact.links.map((link) => (
+                <p>
+                  I build production systems, automation workflows, and kinetic interfaces with the stack behind this
+                  scene: React, Next.js, WebGL, Node, Go, and PostgreSQL.
+                </p>
+                <div className="hero-actions" aria-label="Primary actions">
+                  {hero.ctas.map((heroCta) => (
                     <a
-                      key={link.label}
-                      href={link.href}
-                      target={link.external ? "_blank" : undefined}
-                      rel={link.external ? "noreferrer" : undefined}
-                      className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/[0.03] px-5 py-3 text-sm font-semibold text-slate-100 transition hover:border-cyan-200/60 hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+                      key={heroCta.label}
+                      href={heroCta.href}
+                      download={heroCta.download}
+                      target={heroCta.external ? "_blank" : undefined}
+                      rel={heroCta.external ? "noreferrer" : undefined}
+                      className="link-underline"
                     >
+                      {heroCta.label}
+                    </a>
+                  ))}
+                </div>
+              </aside>
+            </div>
+
+            <div className="hero-bottom-rail hero-anim hero-delay-4">
+              <p className="font-mono text-[0.75rem] leading-5 text-white/52">
+                Local time
+                <br />
+                <LocalTime />
+              </p>
+
+              <ul className="hidden gap-3 font-mono text-[0.78rem] leading-6 text-white/58 sm:grid">
+                {contact.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} target="_blank" rel="noreferrer" className="nav-text-link">
                       {link.label}
                     </a>
+                  </li>
+                ))}
+                <li>
+                  <a href={`mailto:${contact.email}`} className="nav-text-link">
+                    Email
+                  </a>
+                </li>
+              </ul>
+
+              <p className="hidden max-w-44 text-right font-mono text-[0.68rem] font-bold uppercase leading-4 text-white md:block">
+                © 2026
+                <br />
+                {person.name}
+              </p>
+            </div>
+          </section>
+
+          <SectionReveal>
+            <section aria-label="Kinetic highlights" className="marquee-band">
+              <div className="marquee-track">
+                {[0, 1].map((item) => (
+                  <div key={item} className="marquee-content">
+                    <span>Senior Full-Stack & AI Product Engineer</span>
+                    <span>React Three Fiber</span>
+                    <span>Production Automation</span>
+                    <span>Geospatial Systems</span>
+                    <span>Open to senior roles</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section className="content-band border-y border-white/12" aria-label={impact.sectionTitle}>
+              <div className="content-grid">
+                <div>
+                  <p className="section-label">{impact.sectionTitle}</p>
+                  <p className="mt-4 max-w-xl text-balance text-xl leading-8 text-white/78">{impact.intro}</p>
+                </div>
+                <div className="stat-grid">
+                  {impact.stats.map((stat) => (
+                    <article key={stat.label} className="stat-cell">
+                      <p className="stat-value">{stat.value}</p>
+                      <h2 className="mt-2 text-sm font-semibold text-white">{stat.label}</h2>
+                      <p className="mt-3 text-sm leading-6 text-white/50">{stat.note}</p>
+                    </article>
                   ))}
                 </div>
               </div>
             </section>
           </SectionReveal>
+
+          <SectionReveal>
+            <section id="about" className="content-band scroll-mt-24">
+              <div className="content-grid">
+                <div>
+                  <p className="section-label">{about.sectionTitle}</p>
+                  <h2 className="section-title">Systems thinking with a front-of-house finish.</h2>
+                </div>
+                <div className="space-y-5 text-lg leading-8 text-white/68">
+                  {about.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section id="capabilities" className="content-band scroll-mt-24 border-t border-white/12">
+              <div className="content-grid">
+                <div>
+                  <p className="section-label">{capabilities.sectionTitle}</p>
+                  <h2 className="section-title">From AI orchestration to production product surfaces.</h2>
+                </div>
+                <div className="divide-y divide-white/12">
+                  {capabilities.services.map((service) => (
+                    <article key={service.title} className="service-row">
+                      <h3 className="text-2xl font-semibold text-white">{service.title}</h3>
+                      <p className="mt-4 text-base leading-7 text-white/62">{service.description}</p>
+                      <ul className="mt-5 grid gap-2 font-mono text-xs leading-5 text-white/52 sm:grid-cols-3">
+                        {service.outcomes.map((outcome) => (
+                          <li key={outcome}>{outcome}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section className="content-band border-t border-white/12" aria-label={skills.sectionTitle}>
+              <div className="content-grid">
+                <div>
+                  <p className="section-label">{skills.sectionTitle}</p>
+                  <h2 className="section-title">Tooling chosen for shipping, not theatre.</h2>
+                </div>
+                <div className="stack-matrix">
+                  {skills.groups.map((group) => (
+                    <article key={group.title} className="stack-row">
+                      <h3>{group.title}</h3>
+                      <ul>
+                        {group.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section id="case-studies" className="content-band scroll-mt-24 border-t border-white/12">
+              <div className="mb-12 grid gap-6 px-4 sm:px-7 lg:grid-cols-[0.78fr_1.22fr] lg:px-10">
+                <p className="section-label">{work.sectionTitle}</p>
+                <h2 className="section-title">{work.caseStudiesTitle}</h2>
+              </div>
+
+              <div className="project-list">
+                {work.caseStudies.map((caseStudy, index) => (
+                  <article key={caseStudy.name} className="project-row">
+                    <p className="project-index">{String(index + 1).padStart(2, "0")}</p>
+                    <div>
+                      <p className="font-mono text-xs uppercase text-white/44">{caseStudy.context}</p>
+                      <h3 className="mt-2 text-3xl font-semibold text-white md:text-5xl">{caseStudy.name}</h3>
+                    </div>
+                    <div className="space-y-4 text-sm leading-7 text-white/60">
+                      <p>
+                        <strong className="text-white">Problem:</strong> {caseStudy.problem}
+                      </p>
+                      <p>
+                        <strong className="text-white">Role:</strong> {caseStudy.role}
+                      </p>
+                      <ul className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-xs text-white/44">
+                        {caseStudy.stack.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-4">
+                        {caseStudy.links.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target={link.external ? "_blank" : undefined}
+                            rel={link.external ? "noreferrer" : undefined}
+                            className="link-underline text-sm"
+                          >
+                            {link.label}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section id="experience" className="content-band scroll-mt-24 border-t border-white/12">
+              <div className="content-grid">
+                <div>
+                  <p className="section-label">{work.experienceTitle}</p>
+                  <h2 className="section-title">Recent roles and operating context.</h2>
+                </div>
+                <div className="timeline">
+                  {work.experience.map((item) => (
+                    <article key={`${item.title}-${item.organization}-${item.period}`} className="timeline-row">
+                      <p className="font-mono text-xs uppercase text-white/42">{item.period}</p>
+                      <div>
+                        <h3 className="text-xl font-semibold text-white">{item.title}</h3>
+                        <p className="mt-1 text-sm text-white/52">{item.organization}</p>
+                      </div>
+                      <p className="text-sm leading-7 text-white/60">{item.description}</p>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </SectionReveal>
+
+          <SectionReveal>
+            <section id="contact" className="final-band scroll-mt-24">
+              <p className="section-label">{contact.sectionTitle}</p>
+              <h2>{cta.title}</h2>
+              <p>{cta.description}</p>
+              <div className="mt-8 flex flex-wrap gap-5">
+                <a href={cta.primary.href} className="link-underline text-lg">
+                  {cta.primary.label}
+                </a>
+                <a href={cta.secondary.href} download={person.resume.downloadFileName} className="link-underline text-lg">
+                  {cta.secondary.label}
+                </a>
+              </div>
+            </section>
+          </SectionReveal>
         </main>
 
-        <footer className="border-t border-white/10 py-8">
-          <p className="mx-auto w-full max-w-7xl px-4 text-sm text-slate-400 sm:px-6 lg:px-8">{footer.text}</p>
+        <footer className="border-t border-white/12 px-4 py-8 font-mono text-xs text-white/42 sm:px-7 lg:px-10">
+          {footer.text}
         </footer>
       </div>
     </>

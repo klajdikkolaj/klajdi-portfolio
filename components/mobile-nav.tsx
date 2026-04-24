@@ -1,5 +1,6 @@
 "use client";
 
+import { Mail, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { LinkItem } from "@/content/portfolio";
 
@@ -36,12 +37,13 @@ export function MobileNav({ links, email }: MobileNavProps) {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:border-white/35 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 md:hidden"
+        className="inline-flex size-10 items-center justify-center border border-white/15 bg-white/5 text-white transition hover:border-white/35 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-dialog"
+        aria-label="Open navigation"
       >
-        Menu
+        <Menu aria-hidden="true" size={18} strokeWidth={1.8} />
       </button>
 
       <div
@@ -57,19 +59,20 @@ export function MobileNav({ links, email }: MobileNavProps) {
           type="button"
           tabIndex={isOpen ? 0 : -1}
           onClick={() => setIsOpen(false)}
-          className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/86 backdrop-blur-sm"
           aria-label="Close menu overlay"
         />
 
-        <div className="absolute inset-x-4 top-5 rounded-2xl border border-white/15 bg-slate-900/95 p-5 shadow-2xl shadow-slate-950/70">
+        <div className="absolute inset-x-4 top-5 border border-white/15 bg-black/95 p-5 shadow-2xl shadow-black/70">
           <div className="flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200/90">Navigation</p>
+            <p className="text-xs font-semibold uppercase text-white/54">Navigation</p>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="rounded-lg border border-white/15 px-3 py-1.5 text-xs font-semibold text-slate-100 transition hover:border-white/40"
+              className="inline-flex size-9 items-center justify-center border border-white/15 text-white transition hover:border-white/40"
+              aria-label="Close navigation"
             >
-              Close
+              <X aria-hidden="true" size={17} strokeWidth={1.8} />
             </button>
           </div>
 
@@ -80,7 +83,7 @@ export function MobileNav({ links, email }: MobileNavProps) {
                   <a
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block rounded-xl border border-white/10 bg-white/[0.03] px-3 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/45 hover:bg-cyan-400/5"
+                    className="block border-b border-white/12 px-1 py-3 text-sm font-medium text-white/76 transition hover:text-white"
                   >
                     {link.label}
                   </a>
@@ -92,8 +95,9 @@ export function MobileNav({ links, email }: MobileNavProps) {
           <a
             href={`mailto:${email}`}
             onClick={() => setIsOpen(false)}
-            className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-cyan-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 border border-white bg-white px-4 py-3 text-sm font-semibold text-black transition hover:bg-[var(--acid)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
+            <Mail aria-hidden="true" size={16} strokeWidth={1.8} />
             Email Klajdi
           </a>
         </div>
