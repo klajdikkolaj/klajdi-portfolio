@@ -164,22 +164,22 @@ export default function Home() {
           </SectionReveal>
 
           <SectionReveal>
-            <section className="image-story-band" aria-label="Generated portfolio visual">
+            <section className="image-story-band" aria-label="Portfolio visual identity">
               <div className="image-story-media">
                 <Image
                   src="/generated/portfolio-orb-terrain.png"
-                  alt="Iridescent glass sphere floating above fractured black mineral terrain"
+                  alt="Abstract iridescent sphere representing Klajdi's product and engineering style"
                   fill
                   className="image-story-img"
                   sizes="100vw"
                 />
               </div>
               <div className="image-story-copy">
-                <p className="section-label">Generated Visual System</p>
-                <h2>Black mineral terrain, synthetic light, production-grade interfaces.</h2>
+                <p className="section-label">Visual Identity</p>
+                <h2>Precision engineering with a modern product aesthetic.</h2>
                 <p>
-                  The visual language now mirrors the work: precise systems, luminous automation, and a technical surface
-                  that feels built rather than decorated.
+                  This visual language reflects how I build: reliable systems, thoughtful automation, and polished product
+                  interfaces that are designed for real-world use.
                 </p>
               </div>
             </section>

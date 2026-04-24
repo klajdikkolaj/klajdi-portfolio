@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: portfolioContent.site.ogImage,
         width: 1672,
         height: 941,
-        alt: "Iridescent glass sphere above fractured black mineral terrain",
+        alt: "Iridescent sphere artwork for Klajdi Kolaj portfolio",
       },
     ],
   },
